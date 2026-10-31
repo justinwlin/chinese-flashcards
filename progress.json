@@ -1,7 +1,29 @@
 {
   "version": 2,
-  "updated": "2026-10-31T07:43:38.895Z",
+  "updated": "2026-10-31T07:43:40.994Z",
   "cards": {
+    "kou:read": {
+      "id": "kou:read",
+      "wordId": "kou",
+      "hanzi": "口",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778219451,
+      "lastReview": 1793432619451,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:39.451Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    },
     "ren:read": {
       "id": "ren:read",
       "wordId": "ren",
