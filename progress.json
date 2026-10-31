@@ -1,7 +1,30 @@
 {
   "version": 2,
-  "updated": "2026-10-31T22:02:05.628Z",
+  "updated": "2026-10-31T22:02:36.405Z",
   "cards": {
+    "feiji:read": {
+      "id": "feiji:read",
+      "wordId": "feiji",
+      "hanzi": "飞机",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484209971,
+      "lastReview": 1793484149971,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:29.971Z",
+          "grade": "again",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
     "hao:read": {
       "id": "hao:read",
       "wordId": "hao",
@@ -142,6 +165,29 @@
         }
       ]
     },
+    "pengyou:read": {
+      "id": "pengyou:read",
+      "wordId": "pengyou",
+      "hanzi": "朋友",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484214184,
+      "lastReview": 1793484154184,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:34.184Z",
+          "grade": "again",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
     "ren:read": {
       "id": "ren:read",
       "wordId": "ren",
@@ -260,6 +306,52 @@
         }
       ]
     },
+    "wo:read": {
+      "id": "wo:read",
+      "wordId": "wo",
+      "hanzi": "我",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793829756051,
+      "lastReview": 1793484156051,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:36.051Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
+    "xiexie:read": {
+      "id": "xiexie:read",
+      "wordId": "xiexie",
+      "hanzi": "谢谢",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484200321,
+      "lastReview": 1793484140321,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:20.321Z",
+          "grade": "again",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
     "yue:read": {
       "id": "yue:read",
       "wordId": "yue",
@@ -301,6 +393,29 @@
           "direction": "read"
         }
       ]
+    },
+    "zhongguo:read": {
+      "id": "zhongguo:read",
+      "wordId": "zhongguo",
+      "hanzi": "中国",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484505208,
+      "lastReview": 1793484145208,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:25.208Z",
+          "grade": "hard",
+          "direction": "read"
+        }
+      ],
+      "queued": true
     }
   },
   "deletedWords": {}
