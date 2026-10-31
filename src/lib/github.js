@@ -15,30 +15,47 @@ function decodeBase64(value) {
 }
 
 async function github(token, path, options = {}) {
-  const response = await fetch(`${API}${path}`, {
-    ...options,
-    headers: {
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${token}`,
-      'X-GitHub-Api-Version': '2022-11-28',
-      ...(options.body ? { 'Content-Type': 'application/json' } : {}),
-      ...options.headers,
-    },
-  });
-  return response;
+  try {
+    return await fetch(`${API}${path}`, {
+      ...options,
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${token}`,
+        'X-GitHub-Api-Version': '2022-11-28',
+        ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+        ...options.headers,
+      },
+    });
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : 'network error';
+    throw new Error(`GitHub network error: ${reason}`);
+  }
 }
 
-function explain(status, body) {
+export function githubError(status, body) {
   let message = '';
   try {
     message = JSON.parse(body).message || '';
   } catch {
-    message = body.slice(0, 180);
+    message = String(body || '').replace(/\s+/g, ' ').slice(0, 300);
   }
-  if (status === 401) return 'GitHub rejected the token. Paste a fine-grained token with Contents set to read and write.';
-  if (status === 403) return `GitHub refused the edit (${message || '403'}). Set Contents to read and write on this repo only.`;
-  if (status === 404) return 'That repo or branch has no file at this path. Check the owner, repo, and branch in Settings.';
-  return message || `GitHub request failed (${status}).`;
+  if (status === 401) {
+    return `GitHub 401: ${message || 'Bad credentials.'} Paste a fine-grained token with Contents set to read and write.`;
+  }
+  if (status === 403) {
+    return `GitHub 403: ${message || 'Forbidden.'} Set Contents to read and write on this repo only.`;
+  }
+  if (status === 404) {
+    return `GitHub 404: ${message || 'Not Found.'} Check the token, owner, repo, and branch.`;
+  }
+  return `GitHub ${status}: ${message || 'request failed'}`;
+}
+
+function shaConflict(status, body) {
+  if (status === 409) return true;
+  if (status !== 422) return false;
+  const text = String(body).toLowerCase();
+  return text.includes('sha') && (text.includes('does not match') || text.includes('mismatch'));
 }
 
 export async function readContent({ token, owner, repo, branch, path }) {
@@ -46,9 +63,9 @@ export async function readContent({ token, owner, repo, branch, path }) {
     token,
     `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}?ref=${encodeURIComponent(branch)}`,
   );
-  if (response.status === 404) return { missing: true, sha: null, text: '' };
+  if (response.status === 404) return { missing: true, sha: null, text: '', status: 404 };
   const body = await response.text();
-  if (!response.ok) throw new Error(explain(response.status, body));
+  if (!response.ok) throw new Error(githubError(response.status, body));
   const payload = JSON.parse(body);
   return { missing: false, sha: payload.sha, text: decodeBase64(payload.content || '') };
 }
@@ -57,12 +74,13 @@ export async function readContent({ token, owner, repo, branch, path }) {
  * Write a text file, refetching on sha conflicts.
  * `merge(remoteText)` returns the full text to store, or null to skip the write.
  */
-export async function putContent({ token, owner, repo, branch, path, message, sha, text }) {
+export async function putContent({ token, owner, repo, branch, path, message, sha, text, keepalive = false }) {
   const response = await github(
     token,
     `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}`,
     {
       method: 'PUT',
+      keepalive,
       body: JSON.stringify({
         message,
         content: encodeBase64(text),
@@ -72,10 +90,17 @@ export async function putContent({ token, owner, repo, branch, path, message, sh
     },
   );
   const body = await response.text();
-  if (response.status === 409 || response.status === 422) return { conflict: true };
-  if (!response.ok) throw new Error(explain(response.status, body));
-  const payload = JSON.parse(body);
-  return { conflict: false, sha: payload.content?.sha || null };
+  if (shaConflict(response.status, body)) return { conflict: true };
+  if (response.status !== 200 && response.status !== 201) throw new Error(githubError(response.status, body));
+  let payload;
+  try {
+    payload = JSON.parse(body);
+  } catch {
+    throw new Error(`GitHub ${response.status}: response was not JSON.`);
+  }
+  const commitSha = payload.commit?.sha;
+  if (!commitSha) throw new Error(`GitHub ${response.status}: response had no commit sha.`);
+  return { conflict: false, status: response.status, commitSha, contentSha: payload.content?.sha || null };
 }
 
 export async function writeContent({ token, owner, repo, branch, path, message, merge }) {
@@ -100,13 +125,19 @@ export async function writeContent({ token, owner, repo, branch, path, message, 
       },
     );
     const body = await response.text();
-    if (response.status === 409 || response.status === 422) {
-      lastError = new Error('The file changed while syncing.');
+    if (shaConflict(response.status, body)) {
+      lastError = new Error(`GitHub ${response.status}: the file changed while syncing.`);
       continue;
     }
-    if (!response.ok) throw new Error(explain(response.status, body));
-    const payload = JSON.parse(body);
-    return { changed: true, text: nextText, sha: payload.content?.sha || null };
+    if (response.status !== 200 && response.status !== 201) throw new Error(githubError(response.status, body));
+    let payload;
+    try {
+      payload = JSON.parse(body);
+    } catch {
+      throw new Error(`GitHub ${response.status}: response was not JSON.`);
+    }
+    if (!payload.commit?.sha) throw new Error(`GitHub ${response.status}: response had no commit sha.`);
+    return { changed: true, text: nextText, sha: payload.commit.sha, status: response.status };
   }
   throw lastError || new Error('Could not sync because the file kept changing. Try again.');
 }

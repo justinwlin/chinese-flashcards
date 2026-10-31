@@ -172,6 +172,21 @@ export function previewDelays(card, now) {
   return delays;
 }
 
+/** Schedule the card and append one review-log entry. Does not mutate `card`. */
+export function withReview(card, rating, reviewedAt, hanzi = '') {
+  const next = schedule(card, rating, reviewedAt);
+  next.hanzi = hanzi || card.hanzi || '';
+  next.reviews = [
+    ...(Array.isArray(card.reviews) ? card.reviews : []),
+    {
+      at: new Date(reviewedAt).toISOString(),
+      grade: rating,
+      direction: card.direction,
+    },
+  ];
+  return next;
+}
+
 export function formatDelay(ms) {
   const minutes = Math.round(ms / MIN_MS);
   if (minutes < 60) return `${Math.max(1, minutes)}m`;

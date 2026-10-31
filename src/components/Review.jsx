@@ -13,7 +13,7 @@ const RATING_LABELS = [
   ['easy', 'Easy'],
 ];
 
-export function Review({ words, cards, settings, now, syncing, undo, onGrade, onUndo }) {
+export function Review({ words, cards, settings, now, undo, onGrade, onUndo }) {
   const today = dayKey(now);
   const summary = summarize(words, cards, settings, now, today);
   const queue = buildQueue(words, cards, settings, now, today);
@@ -39,7 +39,7 @@ export function Review({ words, cards, settings, now, syncing, undo, onGrade, on
         reveal();
         return;
       }
-      if (!revealed || syncing) return;
+      if (!revealed) return;
       const ratings = { 1: 'again', 2: 'hard', 3: 'good', 4: 'easy' };
       if (ratings[event.key]) {
         event.preventDefault();
@@ -128,7 +128,6 @@ export function Review({ words, cards, settings, now, syncing, undo, onGrade, on
                   key={rating}
                   type="button"
                   class={`grade grade-${rating}`}
-                  disabled={syncing}
                   onClick={() => onGrade(current, rating)}
                 >
                   <span>{label}</span>

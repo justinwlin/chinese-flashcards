@@ -42,12 +42,16 @@ Once a card has graduated, Good multiplies the interval by the card's ease (star
 
 Sync is optional. With no token, the app is complete: add words, review, and export a backup.
 
-With a token, Settings → **Sync now** does two things through the GitHub Contents API:
+With a token, the app writes through the GitHub Contents API:
 
-- It commits new and edited words to `words.json`.
-- It commits review progress to `progress.json` (created on the first sync).
+- New and edited words go to `words.json`.
+- Reviews go to `progress.json`, created on the first sync that has something to save.
 
-If GitHub says the file changed in the meantime, the app refetches, merges, and retries. Words merge by their `updated` time. Reviews merge by the later review time. Deleting a word writes a tombstone so an older copy does not come back.
+Sync runs when the app opens, about a second after each review, and when you leave the app. **Sync now** is on the Today screen and in Settings. The line under the title reads `Last synced at <time>, commit <sha>` only after GitHub returns HTTP 200 or 201 with a commit. If GitHub refuses the token, the same line's message includes the status and GitHub's error text. "No reviews to send yet" means nothing was committed.
+
+If GitHub says the file changed in the meantime, the app refetches, merges, and retries. Words merge by their `updated` time. The scheduling state keeps the later review, and the review logs from both devices are combined. Deleting a word writes a tombstone so an older copy does not come back.
+
+`progress.json` version 2 stores, for each card, the hanzi, the direction (`read` or `write`), the scheduling fields, and a `reviews` array of `{ at, grade, direction }`.
 
 The token is stored only in this device's IndexedDB. It is not written into `words.json`, `progress.json`, or the backup file. **Forget token** deletes it. Each phone needs the token pasted once.
 
@@ -62,7 +66,7 @@ The token is stored only in this device's IndexedDB. It is not written into `wor
 5. Repository access: **Only select repositories**, then choose `chinese-flashcards`.
 6. Under **Repository permissions**, set **Contents** to **Read and write**. Leave every other permission at **No access**.
 7. Generate the token and copy it. GitHub shows it only once.
-8. In the app, open **Settings**, paste the token, tap **Save on this device**, then **Sync now**.
+8. In the app, open **Settings**, paste the token, tap **Save on this device**, then **Sync now**. After you update the app, swipe it away and open it again from the home screen so the new version replaces the saved copy. The token stays on the phone. Paste it again only if the token field is empty.
 
 When the token expires, GitHub returns a 401 and the app asks you to paste a new one. Reviews already on the phone stay put.
 

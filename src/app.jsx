@@ -23,10 +23,10 @@ import {
   parseWords,
   publicWord,
 } from './lib/merge.js';
-import { schedule } from './lib/srs.js';
+import { withReview } from './lib/srs.js';
 import { normalizeSettings } from './lib/settings.js';
 import { warmVoices } from './lib/speech.js';
-import { syncDeck } from './lib/sync.js';
+import { formatSyncLine, syncDeck } from './lib/sync.js';
 import { applyTheme } from './lib/theme.js';
 
 const stateRef = {
@@ -39,6 +39,8 @@ const stateRef = {
   },
 };
 const syncingRef = { current: false };
+const syncAgainRef = { current: false };
+let syncTimer = 0;
 
 function readRoute() {
   const hash = decodeURIComponent((location.hash || '#/').replace(/^#/, '') || '/');
@@ -64,7 +66,8 @@ export function App() {
   const [now, setNow] = useState(Date.now());
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState('');
-  const [lastSync, setLastSync] = useState('');
+  const [syncIsError, setSyncIsError] = useState(false);
+  const [lastSync, setLastSync] = useState(null);
   const [warning, setWarning] = useState('');
   const [loadError, setLoadError] = useState('');
   const [undo, setUndo] = useState(null);
@@ -79,15 +82,33 @@ export function App() {
     if ('token' in partial) setToken(partial.token);
   };
 
-  const runSync = async (tokenOverride) => {
-    if (syncingRef.current) return;
-    const credential = (tokenOverride ?? stateRef.current.token).trim();
+  const applySyncResult = async (result) => {
+    const latest = stateRef.current;
+    const tombstones = mergeTombstones(latest.tombstones, result.tombstones);
+    const words = alignWords(latest.words, result.words, tombstones);
+    const cards = mergeCards(latest.cards, result.cards);
+    await replaceWords(words);
+    await replaceCards(cards);
+    await setKv('tombstones', tombstones);
+    publish({ words, cards, tombstones });
+  };
+
+  const runSync = async (tokenOverride, { manual = false, keepalive = false } = {}) => {
+    if (syncingRef.current) {
+      syncAgainRef.current = true;
+      return;
+    }
+    const credential = String(tokenOverride ?? stateRef.current.token).trim();
     if (!credential) {
-      setSyncMessage('Paste a GitHub token first.');
+      if (manual) {
+        setSyncIsError(true);
+        setSyncMessage('Paste a GitHub token first.');
+      }
       return;
     }
     syncingRef.current = true;
     setSyncing(true);
+    setSyncIsError(false);
     setSyncMessage('Syncing…');
     try {
       remember({ token: credential });
@@ -99,27 +120,33 @@ export function App() {
         words: stateRef.current.words,
         cards: stateRef.current.cards,
         tombstones: stateRef.current.tombstones,
+        keepalive,
       });
-      const syncedAt = new Date().toISOString();
-      await replaceWords(result.words);
-      await replaceCards(result.cards);
-      await setKv('tombstones', result.tombstones);
-      await setKv('lastSync', syncedAt);
-      publish({
-        words: result.words,
-        cards: result.cards,
-        tombstones: result.tombstones,
-      });
-      setLastSync(syncedAt);
-      const wordNote = result.wordsChanged ? 'Saved words to GitHub.' : 'Words already match GitHub.';
-      const progressNote = result.progressChanged ? 'Saved review progress.' : 'Progress already matches GitHub.';
-      setSyncMessage(`${wordNote} ${progressNote}`);
+      await applySyncResult(result);
+      if (result.committed && result.commitSha) {
+        const record = { at: new Date().toISOString(), commit: result.commitSha };
+        await setKv('lastSync', record);
+        setLastSync(record);
+      }
+      setSyncIsError(false);
+      setSyncMessage(result.message);
     } catch (error) {
+      setSyncIsError(true);
       setSyncMessage(error.message || 'Sync failed.');
     } finally {
       syncingRef.current = false;
       setSyncing(false);
+      if (syncAgainRef.current) {
+        syncAgainRef.current = false;
+        runSync(undefined, { keepalive });
+      }
     }
+  };
+
+  const scheduleSync = () => {
+    if (!String(stateRef.current.token || '').trim()) return;
+    window.clearTimeout(syncTimer);
+    syncTimer = window.setTimeout(() => runSync(), 1200);
   };
 
   useEffect(() => {
@@ -152,7 +179,7 @@ export function App() {
         settings: nextSettings,
         token: nextToken,
       });
-      setLastSync(snap.kv.lastSync || '');
+      setLastSync(snap.kv.lastSync && snap.kv.lastSync.commit ? snap.kv.lastSync : null);
       setWarning(storageWarning());
       setLoadError(nextWords.length ? '' : 'Open the app online once so it can download the word list. After that it works offline.');
       setReady(true);
@@ -175,10 +202,17 @@ export function App() {
     const onVisible = () => {
       if (document.visibilityState === 'visible') tick();
     };
+    const onHide = () => {
+      if (document.visibilityState !== 'hidden') return;
+      window.clearTimeout(syncTimer);
+      runSync(undefined, { keepalive: true });
+    };
     document.addEventListener('visibilitychange', onVisible);
+    document.addEventListener('visibilitychange', onHide);
     return () => {
       window.clearInterval(timer);
       document.removeEventListener('visibilitychange', onVisible);
+      document.removeEventListener('visibilitychange', onHide);
     };
   }, []);
 
@@ -206,7 +240,6 @@ export function App() {
   };
 
   const saveWord = async (word) => {
-    if (syncingRef.current) return;
     const exists = stateRef.current.words.some((item) => item.id === word.id);
     const nextWords = exists
       ? stateRef.current.words.map((item) => (item.id === word.id ? word : item))
@@ -214,10 +247,10 @@ export function App() {
     await replaceWords(nextWords);
     publish({ words: nextWords });
     location.hash = '#/words';
+    scheduleSync();
   };
 
   const removeWord = async (word) => {
-    if (syncingRef.current) return;
     const nextTombs = { ...stateRef.current.tombstones, [word.id]: deletionStamp(word) };
     const nextWords = stateRef.current.words.filter((item) => item.id !== word.id);
     const nextCards = { ...stateRef.current.cards };
@@ -229,22 +262,23 @@ export function App() {
     publish({ words: nextWords, cards: nextCards, tombstones: nextTombs });
     setUndo(null);
     location.hash = '#/words';
+    scheduleSync();
   };
 
   const grade = async (item, rating) => {
-    if (syncingRef.current) return;
     const reviewedAt = Date.now();
     const previous = stateRef.current.cards[item.card.id] || null;
-    const next = schedule(item.card, rating, reviewedAt);
+    const next = withReview(item.card, rating, reviewedAt, item.word.hanzi);
     if (item.card.status === 'new') next.introducedOn = dayKey(reviewedAt);
     await putCard(next);
     publish({ cards: { ...stateRef.current.cards, [next.id]: next } });
     setUndo({ previous, id: next.id });
     setNow(reviewedAt);
+    scheduleSync();
   };
 
   const undoGrade = async () => {
-    if (!undo || syncingRef.current) return;
+    if (!undo) return;
     const nextCards = { ...stateRef.current.cards };
     if (!undo.previous) {
       delete nextCards[undo.id];
@@ -255,6 +289,7 @@ export function App() {
     }
     publish({ cards: nextCards });
     setUndo(null);
+    scheduleSync();
   };
 
   const exportBackup = () => {
@@ -335,6 +370,15 @@ export function App() {
             </div>
           </div>
         </header>
+        {ready && (
+          <div class="sync-bar">
+            <p class="sync-line" role="status" title={lastSync?.commit || undefined}>{formatSyncLine(lastSync)}</p>
+            {syncMessage && <p class={syncIsError ? 'form-error' : 'sync-message'} role="status">{syncMessage}</p>}
+            <button type="button" class="sync-now" onClick={() => runSync(undefined, { manual: true })} disabled={syncing}>
+              {syncing ? 'Syncing…' : 'Sync now'}
+            </button>
+          </div>
+        )}
         {!ready && <article class="card empty-card"><p class="hanzi hanzi-lg" lang="zh-CN">文</p><p>Opening your deck…</p></article>}
         {ready && loadError && <p class="banner" role="status">{loadError}</p>}
         {ready && route.name === 'review' && (
@@ -343,7 +387,6 @@ export function App() {
             cards={cards}
             settings={settings}
             now={now}
-            syncing={syncing}
             undo={undo}
             onGrade={grade}
             onUndo={undoGrade}
@@ -369,6 +412,7 @@ export function App() {
             token={token}
             syncing={syncing}
             syncMessage={syncMessage}
+            syncIsError={syncIsError}
             lastSync={lastSync}
             warning={warning}
             installEvent={installEvent}

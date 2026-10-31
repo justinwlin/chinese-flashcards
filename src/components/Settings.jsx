@@ -1,4 +1,5 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
+import { formatSyncLine } from '../lib/sync.js';
 
 function Segment({ label, value, options, onChange }) {
   return (
@@ -25,6 +26,7 @@ export function Settings({
   token,
   syncing,
   syncMessage,
+  syncIsError,
   lastSync,
   warning,
   installEvent,
@@ -37,6 +39,7 @@ export function Settings({
   onReset,
 }) {
   const [draftToken, setDraftToken] = useState(token || '');
+  useEffect(() => setDraftToken(token || ''), [token]);
   const [showToken, setShowToken] = useState(false);
   const [importError, setImportError] = useState('');
   const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -93,8 +96,8 @@ export function Settings({
       <section class="panel">
         <h2>GitHub sync</h2>
         <p>
-          A fine-grained token stays in this device's storage. The app uses it to update
-          <code> words.json</code> and <code> progress.json</code> in your repo. Without a token,
+          A fine-grained token stays in this device's storage. Reviews sync about a second after you grade them, and again when the app opens. The token updates
+          <code> words.json</code> and <code> progress.json</code> on GitHub. Without a token,
           reviews stay on this phone.
         </p>
         <label>
@@ -122,7 +125,7 @@ export function Settings({
           disabled={syncing}
           onClick={() => {
             onSaveToken(draftToken);
-            onSync(draftToken);
+            onSync(draftToken, { manual: true });
           }}
         >
           {syncing ? 'Syncing…' : 'Sync now'}
@@ -130,8 +133,8 @@ export function Settings({
         {token && (
           <button type="button" class="danger" onClick={onForgetToken}>Forget token</button>
         )}
-        {syncMessage && <p class="sync-message" role="status">{syncMessage}</p>}
-        {lastSync && <p class="left">Last sync {new Date(lastSync).toLocaleString()}</p>}
+        <p class="sync-line" role="status" title={lastSync?.commit || undefined}>{formatSyncLine(lastSync)}</p>
+        {syncMessage && <p class={syncIsError ? 'form-error' : 'sync-message'} role="status">{syncMessage}</p>}
         <details>
           <summary>Repo</summary>
           <label>

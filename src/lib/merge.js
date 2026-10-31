@@ -129,28 +129,68 @@ export function reconcileRemote({ localWords, remoteWords, localTombs, remoteTom
   return { words, tombstones };
 }
 
+export function unionReviews(left = [], right = []) {
+  const byKey = new Map();
+  for (const entry of [...left, ...right]) {
+    if (!entry?.at || !entry.grade) continue;
+    const direction = entry.direction || '';
+    byKey.set(`${entry.at}|${entry.grade}|${direction}`, {
+      at: entry.at,
+      grade: entry.grade,
+      direction,
+    });
+  }
+  return [...byKey.values()].sort((a, b) => (a.at < b.at ? -1 : a.at > b.at ? 1 : 0));
+}
+
+export function presentCard(card, hanzi = '') {
+  return {
+    id: card.id,
+    wordId: card.wordId,
+    hanzi: hanzi || card.hanzi || '',
+    direction: card.direction,
+    status: card.status,
+    step: card.step || 0,
+    ease: card.ease,
+    interval: card.interval || 0,
+    repetitions: card.repetitions || 0,
+    lapses: card.lapses || 0,
+    due: card.due || 0,
+    lastReview: card.lastReview || 0,
+    introducedOn: card.introducedOn || null,
+    reviews: unionReviews(card.reviews, []),
+  };
+}
+
 export function mergeCards(local, remote) {
   const out = {};
   const ids = new Set([...Object.keys(local || {}), ...Object.keys(remote || {})]);
   for (const id of ids) {
     const left = local?.[id];
     const right = remote?.[id];
-    if (!left) out[id] = { ...right };
-    else if (!right) out[id] = { ...left };
-    else out[id] = (left.lastReview || 0) >= (right.lastReview || 0) ? { ...left } : { ...right };
+    if (!left) out[id] = { ...right, reviews: unionReviews(right.reviews, []) };
+    else if (!right) out[id] = { ...left, reviews: unionReviews(left.reviews, []) };
+    else {
+      const winner = (left.lastReview || 0) >= (right.lastReview || 0) ? left : right;
+      out[id] = { ...winner, reviews: unionReviews(left.reviews, right.reviews) };
+    }
   }
   return out;
 }
 
-export function serializeProgress({ cards, deletedWords, updated }) {
+export function serializeProgress({ cards, words, deletedWords, updated }) {
+  const hanziById = new Map((words || []).map((word) => [word.id, word.hanzi]));
   const cardIds = Object.keys(cards || {}).sort();
   const orderedCards = {};
-  for (const id of cardIds) orderedCards[id] = cards[id];
+  for (const id of cardIds) {
+    const card = cards[id];
+    orderedCards[id] = presentCard(card, hanziById.get(card.wordId));
+  }
   const tombIds = Object.keys(deletedWords || {}).sort();
   const orderedTombs = {};
   for (const id of tombIds) orderedTombs[id] = deletedWords[id];
   return `${JSON.stringify({
-    version: 1,
+    version: 2,
     updated: updated || new Date().toISOString(),
     cards: orderedCards,
     deletedWords: orderedTombs,
