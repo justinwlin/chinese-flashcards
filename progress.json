@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T07:43:50.829Z",
+  "updated": "2026-10-31T07:43:54.254Z",
   "cards": {
     "kou:read": {
       "id": "kou:read",
@@ -20,6 +20,28 @@
         {
           "at": "2026-10-31T07:43:39.451Z",
           "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    },
+    "ming:read": {
+      "id": "ming:read",
+      "wordId": "ming",
+      "hanzi": "明",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793432992645,
+      "lastReview": 1793432632645,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:52.645Z",
+          "grade": "hard",
           "direction": "read"
         }
       ]
