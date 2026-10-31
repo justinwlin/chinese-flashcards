@@ -57,9 +57,9 @@
     "pinyin": "yuè",
     "meaning": "moon; month",
     "example": {
-      "hanzi": "月亮。",
-      "pinyin": "Yuè liang.",
-      "english": "The moon."
+      "hanzi": "一月有月亮。",
+      "pinyin": "Yī yuè yǒu yuè liang.",
+      "english": "January has a moon. (Tip: 月 is a tall crescent moon with two cloud lines inside; it also means month.)"
     },
     "tags": [
       "day1",
@@ -67,7 +67,7 @@
       "radical"
     ],
     "added": "2026-10-31",
-    "updated": "2026-10-31T00:00:00.000Z"
+    "updated": "2026-10-31T12:10:00.000Z"
   },
   {
     "id": "ming",
@@ -146,13 +146,13 @@
     "example": {
       "hanzi": "日落很美。",
       "pinyin": "Rì luò hěn měi.",
-      "english": "The sunset is beautiful."
+      "english": "The sunset is beautiful. (Tip: 日 sun + 落 fall = the sun falls = sunset. 落 has 艹 grass on top and 氵 water on the left.)"
     },
     "tags": [
       "compound"
     ],
     "added": "2026-10-31",
-    "updated": "2026-10-31T00:00:00.000Z"
+    "updated": "2026-10-31T12:10:00.000Z"
   },
   {
     "id": "nihao",
