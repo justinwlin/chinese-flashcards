@@ -1,9 +1,27 @@
+import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 const wordsPath = new URL('./words.json', import.meta.url);
+const pkg = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8'));
+
+function gitShortSha() {
+  try {
+    return execSync('git rev-parse --short=7 HEAD', { encoding: 'utf8' }).trim();
+  } catch {
+    return 'local';
+  }
+}
+
+const buildSha = (process.env.GITHUB_SHA || gitShortSha()).slice(0, 7);
+const buildTime = process.env.BUILD_TIME || new Date().toISOString();
+const buildMeta = {
+  version: pkg.version,
+  sha: buildSha,
+  builtAt: buildTime,
+};
 
 function wordsJson() {
   const load = () => fs.readFileSync(wordsPath);
@@ -24,12 +42,22 @@ function wordsJson() {
     },
     generateBundle() {
       this.emitFile({ type: 'asset', fileName: 'words.json', source: load() });
+      this.emitFile({
+        type: 'asset',
+        fileName: 'version.json',
+        source: `${JSON.stringify(buildMeta, null, 2)}\n`,
+      });
     },
   };
 }
 
 export default defineConfig({
   base: '/chinese-flashcards/',
+  define: {
+    __APP_VERSION__: JSON.stringify(buildMeta.version),
+    __BUILD_SHA__: JSON.stringify(buildMeta.sha),
+    __BUILD_TIME__: JSON.stringify(buildMeta.builtAt),
+  },
   plugins: [
     preact(),
     wordsJson(),
@@ -60,7 +88,8 @@ export default defineConfig({
         clientsClaim: true,
         skipWaiting: true,
         cleanupOutdatedCaches: true,
-        cacheId: 'chinese-flashcards-v2',
+        cacheId: `chinese-flashcards-${buildSha}`,
+        importScripts: ['sw-message.js'],
       },
     }),
   ],

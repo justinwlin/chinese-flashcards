@@ -54,7 +54,7 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo }) {
   const waiting = summary.nextDue ? formatDelay(Math.max(0, summary.nextDue - now)) : null;
 
   return (
-    <section class="screen">
+    <section class="screen today">
       <div class="counts" aria-label="Today's queue">
         <span><b>{summary.learningDue}</b> learning</span>
         <span><b>{summary.reviewDue}</b> due</span>

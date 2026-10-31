@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'preact/hooks';
 import { formatSyncLine } from '../lib/sync.js';
+import { VersionLabel } from './VersionLabel.jsx';
 
 function Segment({ label, value, options, onChange }) {
   return (
@@ -96,7 +97,7 @@ export function Settings({
       <section class="panel">
         <h2>GitHub sync</h2>
         <p>
-          A fine-grained token stays in this device's storage. Reviews sync about a second after you grade them, and again when the app opens. The token updates
+          A fine-grained token stays in this device's storage. Reviews sync about 15 seconds after you stop grading, and again when the app opens or you leave it. The token updates
           <code> words.json</code> and <code> progress.json</code> on GitHub. Without a token,
           reviews stay on this phone.
         </p>
@@ -207,6 +208,7 @@ export function Settings({
         <h2>Reset</h2>
         <button type="button" class="danger" onClick={onReset}>Erase review progress</button>
       </section>
+      <VersionLabel />
     </section>
   );
 }

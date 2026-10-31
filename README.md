@@ -21,6 +21,8 @@ Use Safari. Chrome on iOS cannot add this kind of home-screen app.
 4. Name it **中文卡** and tap **Add**.
 5. Open **中文卡** from the home screen, not from a bookmark, while you are online. That first launch stores the app and the word list for offline use.
 
+The header shows the installed build, for example `v1.1.0 · 3823230 · built Oct 31, 3:45 AM`. The time is the deploy time in your phone's timezone. The same line is at the bottom of Settings. When a newer deploy is ready, a banner says **Update available, tap to reload**.
+
 After that, today's reviews work without a connection, including from the installed icon. Progress is saved on the phone as soon as you grade a card.
 
 ## Daily review
@@ -47,7 +49,7 @@ With a token, the app writes through the GitHub Contents API:
 - New and edited words go to `words.json`.
 - Reviews go to `progress.json`, created on the first sync that has something to save.
 
-Sync runs when the app opens, about a second after each review, and when you leave the app. **Sync now** is on the Today screen and in Settings. The line under the title reads `Last synced at <time>, commit <sha>` only after GitHub returns HTTP 200 or 201 with a commit. If GitHub refuses the token, the same line's message includes the status and GitHub's error text. "No reviews to send yet" means nothing was committed.
+Sync runs when the app opens, about 15 seconds after you stop grading, and when you leave the app. A review session becomes one commit instead of one commit per card. Pushes that only change `progress.json` do not rebuild the site. A change to `words.json` still deploys, because the installed app loads that file from the build. **Sync now** is on the Today screen and in Settings. The line under the title reads `Last synced at <time>, commit <sha>` only after GitHub returns HTTP 200 or 201 with a commit. If GitHub refuses the token, the same line's message includes the status and GitHub's error text. "No reviews to send yet" means nothing was committed.
 
 If GitHub says the file changed in the meantime, the app refetches, merges, and retries. Words merge by their `updated` time. The scheduling state keeps the later review, and the review logs from both devices are combined. Deleting a word writes a tombstone so an older copy does not come back.
 

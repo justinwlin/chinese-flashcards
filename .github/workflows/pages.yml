@@ -3,7 +3,14 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main]
+    # progress.json is review state. The site does not serve it, so those
+    # commits must not rebuild Pages. words.json is copied into the build
+    # and precached, so a word-list change still deploys.
+    paths-ignore:
+      - progress.json
   pull_request:
+    paths-ignore:
+      - progress.json
   workflow_dispatch:
 
 permissions:
@@ -31,7 +38,10 @@ jobs:
       - name: Test
         run: npm test
       - name: Build
-        run: npm run build
+        run: |
+          export BUILD_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "BUILD_TIME=$BUILD_TIME" >> "$GITHUB_ENV"
+          npm run build
       - name: Upload Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3

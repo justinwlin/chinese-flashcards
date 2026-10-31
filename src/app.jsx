@@ -4,6 +4,7 @@ import { Settings } from './components/Settings.jsx';
 import { WordForm } from './components/WordForm.jsx';
 import { WordList } from './components/WordList.jsx';
 import { IconAdd, IconReview, IconSettings, IconWords } from './components/icons.jsx';
+import { VersionLabel } from './components/VersionLabel.jsx';
 import {
   deleteCard,
   loadSnapshot,
@@ -38,6 +39,7 @@ const stateRef = {
     token: '',
   },
 };
+const SYNC_IDLE_MS = 15000;
 const syncingRef = { current: false };
 const syncAgainRef = { current: false };
 let syncTimer = 0;
@@ -72,6 +74,7 @@ export function App() {
   const [loadError, setLoadError] = useState('');
   const [undo, setUndo] = useState(null);
   const [installEvent, setInstallEvent] = useState(null);
+  const [updateReady, setUpdateReady] = useState(false);
 
   const publish = (partial) => {
     remember(partial);
@@ -146,7 +149,7 @@ export function App() {
   const scheduleSync = () => {
     if (!String(stateRef.current.token || '').trim()) return;
     window.clearTimeout(syncTimer);
-    syncTimer = window.setTimeout(() => runSync(), 1200);
+    syncTimer = window.setTimeout(() => runSync(), SYNC_IDLE_MS);
   };
 
   useEffect(() => {
@@ -228,8 +231,13 @@ export function App() {
       event.preventDefault();
       setInstallEvent(event);
     };
+    const onUpdate = () => setUpdateReady(true);
     window.addEventListener('beforeinstallprompt', onPrompt);
-    return () => window.removeEventListener('beforeinstallprompt', onPrompt);
+    window.addEventListener('cf-update', onUpdate);
+    return () => {
+      window.removeEventListener('beforeinstallprompt', onPrompt);
+      window.removeEventListener('cf-update', onUpdate);
+    };
   }, []);
 
   const saveSettings = async (next) => {
@@ -349,6 +357,8 @@ export function App() {
     setUndo(null);
   };
 
+  const reloadForUpdate = () => window.dispatchEvent(new CustomEvent('cf-apply-update'));
+
   const titles = {
     review: 'Today',
     words: 'Words',
@@ -360,13 +370,14 @@ export function App() {
 
   return (
     <>
-      <div class="shell">
+      <div class={`shell${route.name === 'review' ? ' shell-today' : ''}`}>
         <header class="top">
           <div class="brand">
             <span class="seal" aria-hidden="true">文</span>
             <div>
               <p class="eyebrow">中文卡</p>
               <h1>{titles[route.name]}</h1>
+              <VersionLabel />
             </div>
           </div>
         </header>
@@ -434,19 +445,26 @@ export function App() {
           />
         )}
       </div>
+      {updateReady && (
+        <button type="button" class="update-banner" onClick={reloadForUpdate}>
+          Update available, tap to reload
+        </button>
+      )}
       <nav class="tabs" aria-label="Primary">
-        <a href="#/" class={route.name === 'review' ? 'active' : ''} aria-current={route.name === 'review' ? 'page' : undefined}>
-          <IconReview /> Today
-        </a>
-        <a href="#/words" class={route.name === 'words' || route.name === 'edit' ? 'active' : ''} aria-current={route.name === 'words' ? 'page' : undefined}>
-          <IconWords /> Words
-        </a>
-        <a href="#/new" class={route.name === 'new' ? 'active' : ''} aria-current={route.name === 'new' ? 'page' : undefined}>
-          <IconAdd /> Add
-        </a>
-        <a href="#/settings" class={route.name === 'settings' ? 'active' : ''} aria-current={route.name === 'settings' ? 'page' : undefined}>
-          <IconSettings /> Settings
-        </a>
+        <div class="tabs-inner">
+          <a href="#/" class={route.name === 'review' ? 'active' : ''} aria-current={route.name === 'review' ? 'page' : undefined}>
+            <IconReview /> Today
+          </a>
+          <a href="#/words" class={route.name === 'words' || route.name === 'edit' ? 'active' : ''} aria-current={route.name === 'words' ? 'page' : undefined}>
+            <IconWords /> Words
+          </a>
+          <a href="#/new" class={route.name === 'new' ? 'active' : ''} aria-current={route.name === 'new' ? 'page' : undefined}>
+            <IconAdd /> Add
+          </a>
+          <a href="#/settings" class={route.name === 'settings' ? 'active' : ''} aria-current={route.name === 'settings' ? 'page' : undefined}>
+            <IconSettings /> Settings
+          </a>
+        </div>
       </nav>
     </>
   );
