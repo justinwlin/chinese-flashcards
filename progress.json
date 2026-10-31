@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T22:03:08.147Z",
+  "updated": "2026-10-31T22:03:41.758Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -495,19 +495,24 @@
       "wordId": "xiexie",
       "hanzi": "谢谢",
       "direction": "read",
-      "status": "learning",
+      "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 0,
-      "repetitions": 0,
+      "interval": 1,
+      "repetitions": 1,
       "lapses": 0,
-      "due": 1793484200321,
-      "lastReview": 1793484140321,
+      "due": 1793570621491,
+      "lastReview": 1793484221491,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:02:20.321Z",
           "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T22:03:41.491Z",
+          "grade": "good",
           "direction": "read"
         }
       ],
