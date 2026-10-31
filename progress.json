@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T07:44:01.729Z",
+  "updated": "2026-10-31T07:44:05.788Z",
   "cards": {
     "hao:read": {
       "id": "hao:read",
@@ -130,6 +130,28 @@
         {
           "at": "2026-10-31T07:43:44.865Z",
           "grade": "hard",
+          "direction": "read"
+        }
+      ]
+    },
+    "riluo:read": {
+      "id": "riluo:read",
+      "wordId": "riluo",
+      "hanzi": "日落",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793432704312,
+      "lastReview": 1793432644312,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:44:04.312Z",
+          "grade": "again",
           "direction": "read"
         }
       ]
