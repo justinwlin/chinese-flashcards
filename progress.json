@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T22:03:47.117Z",
+  "updated": "2026-10-31T22:03:51.087Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -250,13 +250,18 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484214184,
-      "lastReview": 1793484154184,
+      "due": 1793484590795,
+      "lastReview": 1793484230795,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:02:34.184Z",
           "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T22:03:50.795Z",
+          "grade": "hard",
           "direction": "read"
         }
       ],
