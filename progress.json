@@ -1,7 +1,29 @@
 {
   "version": 2,
-  "updated": "2026-10-31T07:43:59.591Z",
+  "updated": "2026-10-31T07:44:01.729Z",
   "cards": {
+    "hao:read": {
+      "id": "hao:read",
+      "wordId": "hao",
+      "hanzi": "好",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778240187,
+      "lastReview": 1793432640187,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:44:00.187Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    },
     "kou:read": {
       "id": "kou:read",
       "wordId": "kou",
