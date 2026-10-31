@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T07:49:40.949Z",
+  "updated": "2026-10-31T21:50:02.979Z",
   "cards": {
     "hao:read": {
       "id": "hao:read",
@@ -57,13 +57,18 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793432992645,
-      "lastReview": 1793432632645,
+      "due": 1793483460177,
+      "lastReview": 1793483400177,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T07:43:52.645Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T21:50:00.177Z",
+          "grade": "again",
           "direction": "read"
         }
       ]
@@ -145,13 +150,18 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793432984865,
-      "lastReview": 1793432624865,
+      "due": 1793483455057,
+      "lastReview": 1793483395057,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T07:43:44.865Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T21:49:55.057Z",
+          "grade": "again",
           "direction": "read"
         }
       ]
