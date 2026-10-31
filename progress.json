@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T21:50:02.979Z",
+  "updated": "2026-10-31T21:54:26.905Z",
   "cards": {
     "hao:read": {
       "id": "hao:read",
@@ -57,8 +57,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793483460177,
-      "lastReview": 1793483400177,
+      "due": 1793484021538,
+      "lastReview": 1793483661538,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -69,6 +69,11 @@
         {
           "at": "2026-10-31T21:50:00.177Z",
           "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T21:54:21.538Z",
+          "grade": "hard",
           "direction": "read"
         }
       ]
@@ -106,13 +111,18 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793432998087,
-      "lastReview": 1793432638087,
+      "due": 1793483702699,
+      "lastReview": 1793483642699,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T07:43:58.087Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T21:54:02.699Z",
+          "grade": "again",
           "direction": "read"
         }
       ]
@@ -150,8 +160,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793483455057,
-      "lastReview": 1793483395057,
+      "due": 1793483717525,
+      "lastReview": 1793483657525,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -161,6 +171,11 @@
         },
         {
           "at": "2026-10-31T21:49:55.057Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T21:54:17.525Z",
           "grade": "again",
           "direction": "read"
         }
@@ -177,8 +192,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793433149834,
-      "lastReview": 1793432789834,
+      "due": 1793483709359,
+      "lastReview": 1793483649359,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -189,6 +204,11 @@
         {
           "at": "2026-10-31T07:46:29.834Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T21:54:09.359Z",
+          "grade": "again",
           "direction": "read"
         }
       ]
@@ -226,8 +246,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793433331301,
-      "lastReview": 1793432971301,
+      "due": 1793484013414,
+      "lastReview": 1793483653414,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -242,6 +262,11 @@
         },
         {
           "at": "2026-10-31T07:49:31.301Z",
+          "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T21:54:13.414Z",
           "grade": "hard",
           "direction": "read"
         }
