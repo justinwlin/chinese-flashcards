@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T21:57:53.459Z",
+  "updated": "2026-10-31T22:02:05.628Z",
   "cards": {
     "hao:read": {
       "id": "hao:read",
@@ -57,8 +57,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484021538,
-      "lastReview": 1793483661538,
+      "due": 1793484485315,
+      "lastReview": 1793484125315,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -73,6 +73,11 @@
         },
         {
           "at": "2026-10-31T21:54:21.538Z",
+          "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T22:02:05.315Z",
           "grade": "hard",
           "direction": "read"
         }
@@ -105,14 +110,14 @@
       "wordId": "nv",
       "hanzi": "女",
       "direction": "read",
-      "status": "learning",
+      "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 0,
-      "repetitions": 0,
+      "interval": 1,
+      "repetitions": 1,
       "lapses": 0,
-      "due": 1793483913150,
-      "lastReview": 1793483853150,
+      "due": 1793570520095,
+      "lastReview": 1793484120095,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -128,6 +133,11 @@
         {
           "at": "2026-10-31T21:57:33.150Z",
           "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T22:02:00.095Z",
+          "grade": "good",
           "direction": "read"
         }
       ]
@@ -261,8 +271,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484013414,
-      "lastReview": 1793483653414,
+      "due": 1793484482840,
+      "lastReview": 1793484122840,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -282,6 +292,11 @@
         },
         {
           "at": "2026-10-31T21:54:13.414Z",
+          "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T22:02:02.840Z",
           "grade": "hard",
           "direction": "read"
         }
