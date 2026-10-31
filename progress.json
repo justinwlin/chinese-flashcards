@@ -1,0 +1,237 @@
+{
+  "version": 2,
+  "updated": "2026-10-31T07:46:31.389Z",
+  "cards": {
+    "hao:read": {
+      "id": "hao:read",
+      "wordId": "hao",
+      "hanzi": "好",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778240187,
+      "lastReview": 1793432640187,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:44:00.187Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    },
+    "kou:read": {
+      "id": "kou:read",
+      "wordId": "kou",
+      "hanzi": "口",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778219451,
+      "lastReview": 1793432619451,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:39.451Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    },
+    "ming:read": {
+      "id": "ming:read",
+      "wordId": "ming",
+      "hanzi": "明",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793432992645,
+      "lastReview": 1793432632645,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:52.645Z",
+          "grade": "hard",
+          "direction": "read"
+        }
+      ]
+    },
+    "nihao:read": {
+      "id": "nihao:read",
+      "wordId": "nihao",
+      "hanzi": "你好",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778247179,
+      "lastReview": 1793432647179,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:44:07.179Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    },
+    "nv:read": {
+      "id": "nv:read",
+      "wordId": "nv",
+      "hanzi": "女",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793432998087,
+      "lastReview": 1793432638087,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:58.087Z",
+          "grade": "hard",
+          "direction": "read"
+        }
+      ]
+    },
+    "ren:read": {
+      "id": "ren:read",
+      "wordId": "ren",
+      "hanzi": "人",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778217386,
+      "lastReview": 1793432617386,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:37.386Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    },
+    "ri:read": {
+      "id": "ri:read",
+      "wordId": "ri",
+      "hanzi": "日",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793432984865,
+      "lastReview": 1793432624865,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:44.865Z",
+          "grade": "hard",
+          "direction": "read"
+        }
+      ]
+    },
+    "riluo:read": {
+      "id": "riluo:read",
+      "wordId": "riluo",
+      "hanzi": "日落",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793433149834,
+      "lastReview": 1793432789834,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:44:04.312Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T07:46:29.834Z",
+          "grade": "hard",
+          "direction": "read"
+        }
+      ]
+    },
+    "shui:read": {
+      "id": "shui:read",
+      "wordId": "shui",
+      "hanzi": "水",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778235412,
+      "lastReview": 1793432635412,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:55.412Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    },
+    "yue:read": {
+      "id": "yue:read",
+      "wordId": "yue",
+      "hanzi": "月",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793432842355,
+      "lastReview": 1793432782355,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:49.378Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T07:46:22.355Z",
+          "grade": "again",
+          "direction": "read"
+        }
+      ]
+    }
+  },
+  "deletedWords": {}
+}
