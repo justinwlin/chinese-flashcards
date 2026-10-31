@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "updated": "2026-10-31T07:43:38.895Z",
+  "cards": {
+    "ren:read": {
+      "id": "ren:read",
+      "wordId": "ren",
+      "hanzi": "人",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778217386,
+      "lastReview": 1793432617386,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:37.386Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    }
+  },
+  "deletedWords": {}
+}
