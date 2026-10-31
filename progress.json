@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T07:44:05.788Z",
+  "updated": "2026-10-31T07:44:08.643Z",
   "cards": {
     "hao:read": {
       "id": "hao:read",
@@ -64,6 +64,28 @@
         {
           "at": "2026-10-31T07:43:52.645Z",
           "grade": "hard",
+          "direction": "read"
+        }
+      ]
+    },
+    "nihao:read": {
+      "id": "nihao:read",
+      "wordId": "nihao",
+      "hanzi": "你好",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778247179,
+      "lastReview": 1793432647179,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:44:07.179Z",
+          "grade": "easy",
           "direction": "read"
         }
       ]
