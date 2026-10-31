@@ -1,7 +1,30 @@
 {
   "version": 2,
-  "updated": "2026-10-31T22:02:36.405Z",
+  "updated": "2026-10-31T22:03:08.147Z",
   "cards": {
+    "bu:read": {
+      "id": "bu:read",
+      "wordId": "bu",
+      "hanzi": "不",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793829774336,
+      "lastReview": 1793484174336,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:54.336Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
     "feiji:read": {
       "id": "feiji:read",
       "wordId": "feiji",
@@ -105,6 +128,52 @@
           "direction": "read"
         }
       ]
+    },
+    "na:read": {
+      "id": "na:read",
+      "wordId": "na",
+      "hanzi": "那",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484245262,
+      "lastReview": 1793484185262,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:03:05.262Z",
+          "grade": "again",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
+    "ni:read": {
+      "id": "ni:read",
+      "wordId": "ni",
+      "hanzi": "你",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793829765286,
+      "lastReview": 1793484165286,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:45.286Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ],
+      "queued": true
     },
     "nihao:read": {
       "id": "nihao:read",
@@ -284,6 +353,52 @@
         }
       ]
     },
+    "shenme:read": {
+      "id": "shenme:read",
+      "wordId": "shenme",
+      "hanzi": "什么",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484247783,
+      "lastReview": 1793484187783,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:03:07.783Z",
+          "grade": "again",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
+    "shi:read": {
+      "id": "shi:read",
+      "wordId": "shi",
+      "hanzi": "是",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793829772932,
+      "lastReview": 1793484172932,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:52.932Z",
+          "grade": "easy",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
     "shui:read": {
       "id": "shui:read",
       "wordId": "shui",
@@ -305,6 +420,52 @@
           "direction": "read"
         }
       ]
+    },
+    "ta-she:read": {
+      "id": "ta-she:read",
+      "wordId": "ta-she",
+      "hanzi": "她",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484531266,
+      "lastReview": 1793484171266,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:51.266Z",
+          "grade": "hard",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
+    "ta:read": {
+      "id": "ta:read",
+      "wordId": "ta",
+      "hanzi": "他",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484528685,
+      "lastReview": 1793484168685,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:48.685Z",
+          "grade": "hard",
+          "direction": "read"
+        }
+      ],
+      "queued": true
     },
     "wo:read": {
       "id": "wo:read",
@@ -352,6 +513,29 @@
       ],
       "queued": true
     },
+    "you:read": {
+      "id": "you:read",
+      "wordId": "you",
+      "hanzi": "有",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 1,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793570578670,
+      "lastReview": 1793484178670,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:02:58.670Z",
+          "grade": "good",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
     "yue:read": {
       "id": "yue:read",
       "wordId": "yue",
@@ -393,6 +577,52 @@
           "direction": "read"
         }
       ]
+    },
+    "zai:read": {
+      "id": "zai:read",
+      "wordId": "zai",
+      "hanzi": "在",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484241782,
+      "lastReview": 1793484181782,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:03:01.782Z",
+          "grade": "again",
+          "direction": "read"
+        }
+      ],
+      "queued": true
+    },
+    "zhe:read": {
+      "id": "zhe:read",
+      "wordId": "zhe",
+      "hanzi": "这",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793484243808,
+      "lastReview": 1793484183808,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T22:03:03.808Z",
+          "grade": "again",
+          "direction": "read"
+        }
+      ],
+      "queued": true
     },
     "zhongguo:read": {
       "id": "zhongguo:read",
