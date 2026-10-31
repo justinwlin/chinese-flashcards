@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T07:43:40.994Z",
+  "updated": "2026-10-31T07:43:46.452Z",
   "cards": {
     "kou:read": {
       "id": "kou:read",
@@ -42,6 +42,28 @@
         {
           "at": "2026-10-31T07:43:37.386Z",
           "grade": "easy",
+          "direction": "read"
+        }
+      ]
+    },
+    "ri:read": {
+      "id": "ri:read",
+      "wordId": "ri",
+      "hanzi": "日",
+      "direction": "read",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793432984865,
+      "lastReview": 1793432624865,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:44.865Z",
+          "grade": "hard",
           "direction": "read"
         }
       ]
