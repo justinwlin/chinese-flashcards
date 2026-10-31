@@ -91,12 +91,24 @@ summary:focus-visible {
   display: flex;
   flex-direction: column;
   min-height: 0;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .today .card {
   flex: 1 1 auto;
   min-height: 0;
+  justify-content: flex-start;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.card-body {
+  width: 100%;
+  margin-block: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .today .grades,
@@ -287,7 +299,10 @@ h2 { margin: 0 0 8px; font-size: 22px; }
   border-top: 1px solid var(--line);
 }
 
-.example p { margin: 2px 0; }
+.example p {
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+}
 
 .legend {
   display: flex;
@@ -326,10 +341,15 @@ h2 { margin: 0 0 8px; font-size: 22px; }
 .primary:disabled, .grade:disabled, .danger:disabled { opacity: 0.55; }
 
 .grades {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 8px;
+  padding-top: 8px;
+  background: var(--bg);
+  flex-shrink: 0;
 }
 
 .grade {

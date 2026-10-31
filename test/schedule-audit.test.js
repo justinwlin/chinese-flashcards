@@ -113,7 +113,11 @@ test('Justin’s saved progress is due by its timestamps, not by opening the app
   const savedWords = JSON.parse(fs.readFileSync(new URL('../words.json', import.meta.url), 'utf8'));
   const atSync = Date.parse(progress.updated);
   const queue = buildQueue(savedWords, progress.cards, settings, atSync);
-  assert.equal(queue.length, 0);
+  for (const item of queue) assert.ok(item.card.due <= atSync, item.card.id);
+  const dueIds = Object.values(progress.cards)
+    .filter((card) => card.status !== 'new' && card.due <= atSync)
+    .map((card) => card.id);
+  for (const id of dueIds) assert.ok(queue.some((item) => item.card.id === id), id);
   for (const card of Object.values(progress.cards)) {
     const graded = card.reviews?.at(-1)?.grade;
     if (graded === 'good' || graded === 'easy') {

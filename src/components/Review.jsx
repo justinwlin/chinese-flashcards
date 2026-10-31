@@ -60,7 +60,7 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
         <span><b>{summary.due}</b> due</span>
         <span><b>{summary.unseen}</b> unseen</span>
       </div>
-      <LearnNew unseen={summary.unseen} onLearn={onLearn} />
+      {!current && <LearnNew unseen={summary.unseen} onLearn={onLearn} />}
 
       {undo && (
         <button type="button" class="undo" onClick={onUndo}>
@@ -74,6 +74,7 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
             class="card"
             onClick={() => { if (!revealed) reveal(); }}
           >
+            <div class="card-body">
             <div class="card-tools">
               <span class="pill">{current.card.direction === 'read' ? 'Read' : 'Write'}</span>
               {(current.card.direction === 'read' || revealed) && (
@@ -120,6 +121,7 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
                 </p>
               </div>
             )}
+            </div>
           </article>
 
           {revealed ? (
