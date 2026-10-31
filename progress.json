@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T07:43:54.254Z",
+  "updated": "2026-10-31T07:43:56.965Z",
   "cards": {
     "kou:read": {
       "id": "kou:read",
@@ -86,6 +86,28 @@
         {
           "at": "2026-10-31T07:43:44.865Z",
           "grade": "hard",
+          "direction": "read"
+        }
+      ]
+    },
+    "shui:read": {
+      "id": "shui:read",
+      "wordId": "shui",
+      "hanzi": "水",
+      "direction": "read",
+      "status": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
+      "lapses": 0,
+      "due": 1793778235412,
+      "lastReview": 1793432635412,
+      "introducedOn": "2026-10-31",
+      "reviews": [
+        {
+          "at": "2026-10-31T07:43:55.412Z",
+          "grade": "easy",
           "direction": "read"
         }
       ]
