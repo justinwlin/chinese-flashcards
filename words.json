@@ -1,0 +1,461 @@
+[
+  {
+    "id": "ren",
+    "hanzi": "人",
+    "pinyin": "rén",
+    "meaning": "person",
+    "example": {
+      "hanzi": "他是中国人。",
+      "pinyin": "Tā shì Zhōng guó rén.",
+      "english": "He is Chinese."
+    },
+    "tags": [
+      "day1",
+      "hsk1",
+      "radical"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "kou",
+    "hanzi": "口",
+    "pinyin": "kǒu",
+    "meaning": "mouth",
+    "example": {
+      "hanzi": "张开口。",
+      "pinyin": "Zhāng kāi kǒu.",
+      "english": "Open your mouth."
+    },
+    "tags": [
+      "day1",
+      "radical"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "ri",
+    "hanzi": "日",
+    "pinyin": "rì",
+    "meaning": "sun; day",
+    "example": {
+      "hanzi": "日出。",
+      "pinyin": "Rì chū.",
+      "english": "The sun rises."
+    },
+    "tags": [
+      "day1",
+      "radical"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "yue",
+    "hanzi": "月",
+    "pinyin": "yuè",
+    "meaning": "moon; month",
+    "example": {
+      "hanzi": "月亮。",
+      "pinyin": "Yuè liang.",
+      "english": "The moon."
+    },
+    "tags": [
+      "day1",
+      "hsk1",
+      "radical"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "ming",
+    "hanzi": "明",
+    "pinyin": "míng",
+    "meaning": "bright",
+    "example": {
+      "hanzi": "明天。",
+      "pinyin": "Míng tiān.",
+      "english": "Tomorrow."
+    },
+    "tags": [
+      "day1",
+      "compound"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "shui",
+    "hanzi": "水",
+    "pinyin": "shuǐ",
+    "meaning": "water",
+    "example": {
+      "hanzi": "喝水。",
+      "pinyin": "Hē shuǐ.",
+      "english": "Drink water."
+    },
+    "tags": [
+      "day1",
+      "hsk1",
+      "radical"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "nv",
+    "hanzi": "女",
+    "pinyin": "nǚ",
+    "meaning": "woman",
+    "example": {
+      "hanzi": "女人。",
+      "pinyin": "Nǚ rén.",
+      "english": "A woman."
+    },
+    "tags": [
+      "day1",
+      "radical"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "hao",
+    "hanzi": "好",
+    "pinyin": "hǎo",
+    "meaning": "good",
+    "example": {
+      "hanzi": "很好。",
+      "pinyin": "Hěn hǎo.",
+      "english": "Very good."
+    },
+    "tags": [
+      "day1",
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "riluo",
+    "hanzi": "日落",
+    "pinyin": "rì luò",
+    "meaning": "sunset",
+    "example": {
+      "hanzi": "日落很美。",
+      "pinyin": "Rì luò hěn měi.",
+      "english": "The sunset is beautiful."
+    },
+    "tags": [
+      "compound"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "nihao",
+    "hanzi": "你好",
+    "pinyin": "nǐ hǎo",
+    "meaning": "hello",
+    "example": {
+      "hanzi": "你好吗？",
+      "pinyin": "Nǐ hǎo ma?",
+      "english": "How are you?"
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "xiexie",
+    "hanzi": "谢谢",
+    "pinyin": "xiè xie",
+    "meaning": "thank you",
+    "example": {
+      "hanzi": "谢谢你。",
+      "pinyin": "Xiè xie nǐ.",
+      "english": "Thank you."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "zhongguo",
+    "hanzi": "中国",
+    "pinyin": "Zhōng guó",
+    "meaning": "China",
+    "example": {
+      "hanzi": "中国人。",
+      "pinyin": "Zhōng guó rén.",
+      "english": "A Chinese person."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "feiji",
+    "hanzi": "飞机",
+    "pinyin": "fēi jī",
+    "meaning": "airplane",
+    "example": {
+      "hanzi": "坐飞机。",
+      "pinyin": "Zuò fēi jī.",
+      "english": "Take an airplane."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "pengyou",
+    "hanzi": "朋友",
+    "pinyin": "péng you",
+    "meaning": "friend",
+    "example": {
+      "hanzi": "我的朋友。",
+      "pinyin": "Wǒ de péng you.",
+      "english": "My friend."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "wo",
+    "hanzi": "我",
+    "pinyin": "wǒ",
+    "meaning": "I; me",
+    "example": {
+      "hanzi": "我很好。",
+      "pinyin": "Wǒ hěn hǎo.",
+      "english": "I am well."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "ni",
+    "hanzi": "你",
+    "pinyin": "nǐ",
+    "meaning": "you",
+    "example": {
+      "hanzi": "你是我的朋友。",
+      "pinyin": "Nǐ shì wǒ de péng you.",
+      "english": "You are my friend."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "ta",
+    "hanzi": "他",
+    "pinyin": "tā",
+    "meaning": "he; him",
+    "example": {
+      "hanzi": "他是朋友。",
+      "pinyin": "Tā shì péng you.",
+      "english": "He is a friend."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "ta-she",
+    "hanzi": "她",
+    "pinyin": "tā",
+    "meaning": "she; her",
+    "example": {
+      "hanzi": "她是朋友。",
+      "pinyin": "Tā shì péng you.",
+      "english": "She is a friend."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "shi",
+    "hanzi": "是",
+    "pinyin": "shì",
+    "meaning": "to be",
+    "example": {
+      "hanzi": "他是中国人。",
+      "pinyin": "Tā shì Zhōng guó rén.",
+      "english": "He is Chinese."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "bu",
+    "hanzi": "不",
+    "pinyin": "bù",
+    "meaning": "not",
+    "example": {
+      "hanzi": "不好。",
+      "pinyin": "Bù hǎo.",
+      "english": "Not good."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "you",
+    "hanzi": "有",
+    "pinyin": "yǒu",
+    "meaning": "to have",
+    "example": {
+      "hanzi": "我有朋友。",
+      "pinyin": "Wǒ yǒu péng you.",
+      "english": "I have friends."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "zai",
+    "hanzi": "在",
+    "pinyin": "zài",
+    "meaning": "at; in",
+    "example": {
+      "hanzi": "我在家。",
+      "pinyin": "Wǒ zài jiā.",
+      "english": "I am at home."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "zhe",
+    "hanzi": "这",
+    "pinyin": "zhè",
+    "meaning": "this",
+    "example": {
+      "hanzi": "这是水。",
+      "pinyin": "Zhè shì shuǐ.",
+      "english": "This is water."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "na",
+    "hanzi": "那",
+    "pinyin": "nà",
+    "meaning": "that",
+    "example": {
+      "hanzi": "那是月。",
+      "pinyin": "Nà shì yuè.",
+      "english": "That is the moon."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "shenme",
+    "hanzi": "什么",
+    "pinyin": "shén me",
+    "meaning": "what",
+    "example": {
+      "hanzi": "这是什么？",
+      "pinyin": "Zhè shì shén me?",
+      "english": "What is this?"
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "chi",
+    "hanzi": "吃",
+    "pinyin": "chī",
+    "meaning": "to eat",
+    "example": {
+      "hanzi": "你吃吗？",
+      "pinyin": "Nǐ chī ma?",
+      "english": "Are you eating?"
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "he",
+    "hanzi": "喝",
+    "pinyin": "hē",
+    "meaning": "to drink",
+    "example": {
+      "hanzi": "喝水。",
+      "pinyin": "Hē shuǐ.",
+      "english": "Drink water."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "jia",
+    "hanzi": "家",
+    "pinyin": "jiā",
+    "meaning": "home; family",
+    "example": {
+      "hanzi": "这是家。",
+      "pinyin": "Zhè shì jiā.",
+      "english": "This is home."
+    },
+    "tags": [
+      "hsk1"
+    ],
+    "added": "2026-10-31",
+    "updated": "2026-10-31T00:00:00.000Z"
+  }
+]
