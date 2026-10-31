@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T22:03:51.087Z",
+  "updated": "2026-10-31T22:03:59.432Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -300,8 +300,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484226293,
-      "lastReview": 1793483866293,
+      "due": 1793484599104,
+      "lastReview": 1793484239104,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -323,6 +323,11 @@
           "at": "2026-10-31T21:57:46.293Z",
           "grade": "hard",
           "direction": "read"
+        },
+        {
+          "at": "2026-10-31T22:03:59.104Z",
+          "grade": "hard",
+          "direction": "read"
         }
       ]
     },
@@ -337,8 +342,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484218914,
-      "lastReview": 1793483858914,
+      "due": 1793484296188,
+      "lastReview": 1793484236188,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -359,6 +364,11 @@
         {
           "at": "2026-10-31T21:57:38.914Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T22:03:56.188Z",
+          "grade": "again",
           "direction": "read"
         }
       ]
