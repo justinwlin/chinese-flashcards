@@ -25,12 +25,13 @@ import {
   mergeTombstones,
   parseWords,
   publicWord,
+  buildQueue,
   queueUnseen,
   unseenCards,
 } from './lib/merge.js';
 import { normalizeSettings } from './lib/settings.js';
 import { warmVoices } from './lib/speech.js';
-import { formatSyncLine, syncDeck } from './lib/sync.js';
+import { formatSyncLine, shouldSyncSetNow, syncDeck } from './lib/sync.js';
 import { applyTheme } from './lib/theme.js';
 
 const stateRef = {
@@ -45,6 +46,7 @@ const stateRef = {
 const SYNC_IDLE_MS = 15000;
 const syncingRef = { current: false };
 const syncAgainRef = { current: false };
+const pendingSyncRef = { current: false };
 let syncTimer = 0;
 
 function readRoute() {
@@ -134,11 +136,14 @@ export function App() {
         await setKv('lastSync', record);
         setLastSync(record);
       }
+      pendingSyncRef.current = false;
       setSyncIsError(false);
-      setSyncMessage(result.message);
+      setSyncMessage(result.committed ? 'Synced ✓' : result.message);
     } catch (error) {
-      setSyncIsError(true);
-      setSyncMessage(error.message || 'Sync failed.');
+      const message = error.message || 'Sync failed.';
+      pendingSyncRef.current = /offline|network error/i.test(message);
+      setSyncIsError(!pendingSyncRef.current);
+      setSyncMessage(message);
     } finally {
       syncingRef.current = false;
       setSyncing(false);
@@ -153,6 +158,18 @@ export function App() {
     if (!String(stateRef.current.token || '').trim()) return;
     window.clearTimeout(syncTimer);
     syncTimer = window.setTimeout(() => runSync(), SYNC_IDLE_MS);
+  };
+
+  const flushSync = () => {
+    window.clearTimeout(syncTimer);
+    if (!String(stateRef.current.token || '').trim()) return;
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      pendingSyncRef.current = true;
+      setSyncIsError(false);
+      setSyncMessage('Saved on this phone. Will sync when you\'re online.');
+      return;
+    }
+    runSync();
   };
 
   useEffect(() => {
@@ -206,7 +223,12 @@ export function App() {
     const tick = () => setNow(Date.now());
     const timer = window.setInterval(tick, 15000);
     const onVisible = () => {
-      if (document.visibilityState === 'visible') tick();
+      if (document.visibilityState !== 'visible') return;
+      tick();
+      if (pendingSyncRef.current && navigator.onLine) runSync();
+    };
+    const onOnline = () => {
+      if (pendingSyncRef.current) flushSync();
     };
     const onHide = () => {
       if (document.visibilityState !== 'hidden') return;
@@ -215,10 +237,12 @@ export function App() {
     };
     document.addEventListener('visibilitychange', onVisible);
     document.addEventListener('visibilitychange', onHide);
+    window.addEventListener('online', onOnline);
     return () => {
       window.clearInterval(timer);
       document.removeEventListener('visibilitychange', onVisible);
       document.removeEventListener('visibilitychange', onHide);
+      window.removeEventListener('online', onOnline);
     };
   }, []);
 
@@ -303,10 +327,17 @@ export function App() {
     const next = withReview(item.card, rating, reviewedAt, item.word.hanzi);
     if (item.card.status === 'new') next.introducedOn = dayKey(reviewedAt);
     await putCard(next);
-    publish({ cards: { ...stateRef.current.cards, [next.id]: next } });
+    const nextCards = { ...stateRef.current.cards, [next.id]: next };
+    publish({ cards: nextCards });
     setUndo({ previous, id: next.id });
     setNow(reviewedAt);
-    scheduleSync();
+    const queue = buildQueue(stateRef.current.words, nextCards, stateRef.current.settings, reviewedAt);
+    const queuedLeft = Object.values(nextCards).some((card) => card.status === 'new' && card.queued);
+    if (shouldSyncSetNow({ queueEmpty: queue.length === 0, batchJustFinished: Boolean(item.card.queued) && !queuedLeft })) {
+      flushSync();
+    } else {
+      scheduleSync();
+    }
   };
 
   const undoGrade = async () => {
@@ -426,6 +457,8 @@ export function App() {
             onGrade={grade}
             onUndo={undoGrade}
             onLearn={learnNew}
+            syncMessage={syncMessage}
+            syncIsError={syncIsError}
           />
         )}
         {ready && route.name === 'words' && <WordList words={words} />}

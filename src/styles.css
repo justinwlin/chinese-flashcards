@@ -148,7 +148,9 @@ summary:focus-visible {
   margin: 0 0 14px;
 }
 
-.sync-line, .sync-message { margin: 0; font-size: 13px; font-weight: 650; }
+.sync-line, .sync-message, .set-status { margin: 0; font-size: 13px; font-weight: 650; }
+
+.set-status { color: var(--good); }
 
 .sync-now {
   min-height: 44px;

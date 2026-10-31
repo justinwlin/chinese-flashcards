@@ -3,7 +3,7 @@ import test from 'node:test';
 import { encodeBase64, decodeBase64 } from '../src/lib/github.js';
 import { freshCard, withReview } from '../src/lib/srs.js';
 import { DEFAULT_SETTINGS } from '../src/lib/settings.js';
-import { formatSyncLine, syncDeck } from '../src/lib/sync.js';
+import { formatSyncLine, shouldSyncSetNow, syncDeck } from '../src/lib/sync.js';
 import { mergeCards, serializeWords } from '../src/lib/merge.js';
 
 const settings = { ...DEFAULT_SETTINGS };
@@ -215,6 +215,12 @@ test('review logs from both devices are kept with the newer schedule', () => {
   );
   assert.equal(merged['ren:read'].ease, 2.2);
   assert.deepEqual(merged['ren:read'].reviews.map((entry) => entry.grade), ['again', 'good']);
+});
+
+test('a finished set syncs immediately and a card in the middle does not', () => {
+  assert.equal(shouldSyncSetNow({ queueEmpty: true, batchJustFinished: false }), true);
+  assert.equal(shouldSyncSetNow({ queueEmpty: false, batchJustFinished: true }), true);
+  assert.equal(shouldSyncSetNow({ queueEmpty: false, batchJustFinished: false }), false);
 });
 
 test('the status line names the commit and does not invent one', () => {

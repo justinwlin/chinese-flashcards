@@ -24,6 +24,11 @@ function progressBody(text, words) {
   });
 }
 
+/** A finished due set, or the last card of a Learn new words batch, syncs immediately. */
+export function shouldSyncSetNow({ queueEmpty, batchJustFinished }) {
+  return Boolean(queueEmpty || batchJustFinished);
+}
+
 export function hasReviewedCards(cards) {
   return Object.values(cards || {}).some((card) => (card.lastReview || 0) > 0 || (card.reviews || []).length > 0);
 }

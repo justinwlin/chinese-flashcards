@@ -14,7 +14,7 @@ const RATING_LABELS = [
   ['easy', 'Easy'],
 ];
 
-export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onLearn }) {
+export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onLearn, syncMessage, syncIsError }) {
   const today = dayKey(now);
   const summary = summarize(words, cards, settings, now, today);
   const queue = buildQueue(words, cards, settings, now, today);
@@ -150,6 +150,7 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
           {waiting && <p>Next review in {waiting}.</p>}
           {summary.unseen > 0 && <p>{summary.unseen} unseen words are available when you want them.</p>}
           {summary.unseen === 0 && !waiting && <p>Every card in this set is scheduled ahead.</p>}
+          {syncMessage && <p class={syncIsError ? 'form-error' : 'set-status'} role="status">{syncMessage}</p>}
         </article>
       )}
     </section>
