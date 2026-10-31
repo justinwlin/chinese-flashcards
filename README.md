@@ -21,13 +21,13 @@ Use Safari. Chrome on iOS cannot add this kind of home-screen app.
 4. Name it **中文卡** and tap **Add**.
 5. Open **中文卡** from the home screen, not from a bookmark, while you are online. That first launch stores the app and the word list for offline use.
 
-The header shows the installed build, for example `v1.1.0 · 3823230 · built Oct 31, 3:45 AM`. The time is the deploy time in your phone's timezone. The same line is at the bottom of Settings. When a newer deploy is ready, a banner says **Update available, tap to reload**.
+The header shows the installed build, for example `v1.2.0 · 8def726 · built Oct 31, 3:45 AM`. The time is the deploy time in your phone's timezone. The same line is at the bottom of Settings. When a newer deploy is ready, a banner says **Update available, tap to reload**.
 
 After that, today's reviews work without a connection, including from the installed icon. Progress is saved on the phone as soon as you grade a card.
 
 ## Daily review
 
-The Today screen shows how many cards are learning, due, or new. New cards are capped (10 faces a day by default) so the deck does not dump every word on the first open. Change that, or study only Read or only Write, in Settings.
+The Today screen shows how many reviews are due, and how many words are still unseen. Unseen words stay out of the queue until you tap **Learn new words** and pick how many (5 by default), or until you add a word. Read and Write are scheduled as separate cards. Good waits at least until tomorrow. Again and Hard on a card you are still learning come back in minutes. Easy waits four days, and later Good answers grow the interval from the moment you review.
 
 Grades follow an SM-2-style schedule with short learning steps:
 

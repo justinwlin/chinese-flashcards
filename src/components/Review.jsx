@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'preact/hooks';
+import { LearnNew } from './LearnNew.jsx';
 import { buildQueue, summarize } from '../lib/merge.js';
 import { formatDelay, previewDelays } from '../lib/srs.js';
 import { dayKey } from '../lib/day.js';
@@ -13,7 +14,7 @@ const RATING_LABELS = [
   ['easy', 'Easy'],
 ];
 
-export function Review({ words, cards, settings, now, undo, onGrade, onUndo }) {
+export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onLearn }) {
   const today = dayKey(now);
   const summary = summarize(words, cards, settings, now, today);
   const queue = buildQueue(words, cards, settings, now, today);
@@ -56,10 +57,10 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo }) {
   return (
     <section class="screen today">
       <div class="counts" aria-label="Today's queue">
-        <span><b>{summary.learningDue}</b> learning</span>
-        <span><b>{summary.reviewDue}</b> due</span>
-        <span><b>{Math.min(summary.fresh, summary.budget)}</b> new</span>
+        <span><b>{summary.due}</b> due</span>
+        <span><b>{summary.unseen}</b> unseen</span>
       </div>
+      <LearnNew unseen={summary.unseen} onLearn={onLearn} />
 
       {undo && (
         <button type="button" class="undo" onClick={onUndo}>
@@ -143,14 +144,10 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo }) {
       ) : (
         <article class="card empty-card">
           <p class="hanzi hanzi-lg" lang="zh-CN">日落</p>
-          <h2>You're clear for today.</h2>
-          {summary.fresh > 0 && summary.budget === 0 && (
-            <p>Today's {settings.newPerDay} new cards are done. {summary.fresh} are waiting for tomorrow.</p>
-          )}
+          <h2>No reviews due.</h2>
           {waiting && <p>Next review in {waiting}.</p>}
-          {summary.fresh === 0 && summary.learningDue === 0 && summary.reviewDue === 0 && !waiting && (
-            <p>Every card in this set is scheduled ahead. Add a word when you meet a new one.</p>
-          )}
+          {summary.unseen > 0 && <p>{summary.unseen} unseen words are available when you want them.</p>}
+          {summary.unseen === 0 && !waiting && <p>Every card in this set is scheduled ahead.</p>}
         </article>
       )}
     </section>

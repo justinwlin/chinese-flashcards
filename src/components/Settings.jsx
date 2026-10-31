@@ -65,18 +65,6 @@ export function Settings({
         options={[['both', 'Both'], ['read', 'Read'], ['write', 'Write']]}
       />
 
-      <label>
-        New cards per day
-        <input
-          type="number"
-          min="0"
-          max="200"
-          inputMode="numeric"
-          value={settings.newPerDay}
-          onInput={(event) => onSettings({ ...settings, newPerDay: event.currentTarget.value })}
-        />
-      </label>
-
       <label class="check">
         <input
           type="checkbox"

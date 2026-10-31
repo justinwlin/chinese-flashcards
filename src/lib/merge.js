@@ -144,7 +144,7 @@ export function unionReviews(left = [], right = []) {
 }
 
 export function presentCard(card, hanzi = '') {
-  return {
+  const entry = {
     id: card.id,
     wordId: card.wordId,
     hanzi: hanzi || card.hanzi || '',
@@ -160,6 +160,8 @@ export function presentCard(card, hanzi = '') {
     introducedOn: card.introducedOn || null,
     reviews: unionReviews(card.reviews, []),
   };
+  if (card.queued) entry.queued = true;
+  return entry;
 }
 
 export function mergeCards(local, remote) {
@@ -227,18 +229,17 @@ export function enumerateCards(words, cards, settings) {
   return items;
 }
 
-export function summarize(words, cards, settings, now, today = null) {
-  const day = today;
+export function summarize(words, cards, settings, now) {
   const items = enumerateCards(words, cards, settings);
   let learningDue = 0;
   let reviewDue = 0;
-  let fresh = 0;
-  let introduced = 0;
+  let unseen = 0;
+  let queued = 0;
   let nextDue = null;
   for (const { card } of items) {
-    if (day && card.introducedOn === day) introduced += 1;
     if (card.status === 'new') {
-      fresh += 1;
+      if (card.queued) queued += 1;
+      else unseen += 1;
       continue;
     }
     if (card.due <= now) {
@@ -246,21 +247,38 @@ export function summarize(words, cards, settings, now, today = null) {
       else learningDue += 1;
     } else if (nextDue === null || card.due < nextDue) nextDue = card.due;
   }
-  const limit = Math.max(0, Number(settings.newPerDay) || 0);
-  const budget = Math.max(0, limit - introduced);
   return {
     learningDue,
     reviewDue,
-    fresh,
-    introduced,
-    budget,
+    due: learningDue + reviewDue,
+    unseen,
+    queued,
     nextDue,
-    remaining: learningDue + reviewDue + Math.min(fresh, budget),
+    remaining: learningDue + reviewDue + queued,
   };
 }
 
-export function buildQueue(words, cards, settings, now, today) {
-  const { budget } = summarize(words, cards, settings, now, today);
+function byDirectionThenDeck(a, b) {
+  if (a.card.direction === b.card.direction) return 0;
+  return a.card.direction === 'read' ? -1 : 1;
+}
+
+/** New faces he has not asked to study. Reads come before writes. */
+export function unseenCards(words, cards, settings) {
+  return enumerateCards(words, cards, settings)
+    .filter(({ card }) => card.status === 'new' && !card.queued)
+    .sort(byDirectionThenDeck);
+}
+
+export function queueUnseen(cards, items) {
+  const next = { ...cards };
+  for (const item of items) {
+    next[item.card.id] = { ...item.card, queued: true };
+  }
+  return next;
+}
+
+export function buildQueue(words, cards, settings, now) {
   const items = enumerateCards(words, cards, settings);
   const learning = items
     .filter(({ card }) => (card.status === 'learning' || card.status === 'relearning') && card.due <= now)
@@ -268,10 +286,6 @@ export function buildQueue(words, cards, settings, now, today) {
   const reviews = items
     .filter(({ card }) => card.status === 'review' && card.due <= now)
     .sort((a, b) => a.card.due - b.card.due);
-  const news = items.filter(({ card }) => card.status === 'new');
-  news.sort((a, b) => {
-    if (a.card.direction === b.card.direction) return 0;
-    return a.card.direction === 'read' ? -1 : 1;
-  });
-  return [...learning, ...reviews, ...news.slice(0, budget)];
+  const chosen = items.filter(({ card }) => card.status === 'new' && card.queued);
+  return [...learning, ...reviews, ...chosen];
 }

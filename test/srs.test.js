@@ -17,9 +17,9 @@ test('new cards use learning steps before they graduate', () => {
   assert.equal(hard.status, 'learning');
 
   const good = schedule(card, 'good', 0);
-  assert.equal(good.status, 'learning');
-  assert.equal(good.step, 1);
-  assert.equal(good.due, 10 * MIN);
+  assert.equal(good.status, 'review');
+  assert.equal(good.interval, 1);
+  assert.equal(good.due, DAY);
 
   const easy = schedule(card, 'easy', 0);
   assert.equal(easy.status, 'review');
@@ -28,12 +28,17 @@ test('new cards use learning steps before they graduate', () => {
   assert.equal(easy.ease, 2.65);
 });
 
-test('a good answer on the last learning step graduates to one day', () => {
-  const learning = schedule(freshCard('kou:read', 'kou', 'read'), 'good', 0);
-  const graduated = schedule(learning, 'good', learning.due);
-  assert.equal(graduated.status, 'review');
-  assert.equal(graduated.interval, 1);
-  assert.equal(graduated.due, learning.due + DAY);
+test('good and easy do not come back the same day', () => {
+  const start = Date.parse('2026-10-31T15:00:00Z');
+  const good = schedule(freshCard('kou:read', 'kou', 'read'), 'good', start);
+  const easy = schedule(freshCard('ren:read', 'ren', 'read'), 'easy', start);
+  assert.ok(good.due >= start + DAY);
+  assert.ok(easy.due >= start + 4 * DAY);
+  const hard = schedule(freshCard('ri:read', 'ri', 'read'), 'hard', start);
+  const again = schedule(freshCard('yue:read', 'yue', 'read'), 'again', start);
+  assert.equal(hard.status, 'learning');
+  assert.equal(hard.due, start + 6 * MIN);
+  assert.equal(again.due, start + MIN);
 });
 
 test('review intervals follow ease, and lapses keep 20 percent', () => {
@@ -91,6 +96,7 @@ test('button previews match the delay that will be saved', () => {
     assert.equal(schedule(card, rating, now).due - now, delays[rating]);
   }
   assert.equal(formatDelay(delays.again), '1m');
-  assert.equal(formatDelay(delays.good), '10m');
+  assert.equal(formatDelay(delays.hard), '6m');
+  assert.equal(formatDelay(delays.good), '1d');
   assert.equal(formatDelay(delays.easy), '4d');
 });

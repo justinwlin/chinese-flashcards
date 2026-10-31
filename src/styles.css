@@ -102,8 +102,28 @@ summary:focus-visible {
 .today .grades,
 .today > .primary,
 .today .left,
-.today .undo {
+.today .undo,
+.today .learn-new {
   flex-shrink: 0;
+}
+
+.learn-new {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.learn-new input {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 6px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+  color: var(--ink);
+  padding: 12px 14px;
+  font-size: 16px;
 }
 
 .top { padding: 8px 0 12px; }

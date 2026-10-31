@@ -2,8 +2,9 @@
  * SM-2-style scheduler with Anki-like learning steps.
  *
  * Ratings: again, hard, good, easy.
- * New cards pass through 1-minute and 10-minute steps, then graduate
- * to day-scale intervals. Review intervals grow by the ease factor.
+ * Again and Hard on a new or learning card use Anki-style minute steps.
+ * Good and Easy leave the card for a later day: Good graduates in one day,
+ * Easy in four. Review intervals then grow from the time of that review.
  * Lapses drop back to a 10-minute relearning step and keep 20% of the
  * previous interval instead of wiping the card.
  */
@@ -108,13 +109,6 @@ function scheduleLearning(card, rating, now, steps, relearn) {
     return card;
   }
 
-  const target = entering ? Math.min(1, steps.length - 1) : current + 1;
-  if (target < steps.length) {
-    card.status = relearn ? 'relearning' : 'learning';
-    card.step = target;
-    card.due = now + steps[target] * MIN_MS;
-    return card;
-  }
   const days = relearn ? Math.max(GRADUATE_DAYS, card.interval || GRADUATE_DAYS) : GRADUATE_DAYS;
   return graduate(card, now, days);
 }

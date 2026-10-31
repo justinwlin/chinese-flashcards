@@ -15,16 +15,19 @@ import {
   setKv,
   storageWarning,
 } from './lib/db.js';
-import { dayKey } from './lib/day.js';
+import { cardId, dayKey } from './lib/day.js';
+import { freshCard, withReview } from './lib/srs.js';
 import {
+  activeDirections,
   alignWords,
   deletionStamp,
   mergeCards,
   mergeTombstones,
   parseWords,
   publicWord,
+  queueUnseen,
+  unseenCards,
 } from './lib/merge.js';
-import { withReview } from './lib/srs.js';
 import { normalizeSettings } from './lib/settings.js';
 import { warmVoices } from './lib/speech.js';
 import { formatSyncLine, syncDeck } from './lib/sync.js';
@@ -252,10 +255,31 @@ export function App() {
     const nextWords = exists
       ? stateRef.current.words.map((item) => (item.id === word.id ? word : item))
       : [...stateRef.current.words, word];
+    const cards = { ...stateRef.current.cards };
+    for (const direction of activeDirections(stateRef.current.settings)) {
+      const id = cardId(word.id, direction);
+      const existing = cards[id];
+      if (!existing || existing.status === 'new') {
+        cards[id] = { ...(existing || freshCard(id, word.id, direction)), queued: true };
+      }
+    }
     await replaceWords(nextWords);
-    publish({ words: nextWords });
-    location.hash = '#/words';
+    await replaceCards(cards);
+    publish({ words: nextWords, cards });
+    location.hash = '#/';
     scheduleSync();
+  };
+
+  const learnNew = async (count) => {
+    const picked = unseenCards(
+      stateRef.current.words,
+      stateRef.current.cards,
+      stateRef.current.settings,
+    ).slice(0, count);
+    if (!picked.length) return;
+    const cards = queueUnseen(stateRef.current.cards, picked);
+    await replaceCards(cards);
+    publish({ cards });
   };
 
   const removeWord = async (word) => {
@@ -401,6 +425,7 @@ export function App() {
             undo={undo}
             onGrade={grade}
             onUndo={undoGrade}
+            onLearn={learnNew}
           />
         )}
         {ready && route.name === 'words' && <WordList words={words} />}

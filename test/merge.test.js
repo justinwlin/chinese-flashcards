@@ -70,7 +70,7 @@ test('the daily queue teaches reading faces before writing faces', () => {
   const now = Date.parse('2026-10-31T15:00:00Z');
   const today = '2026-10-31';
   const queue = buildQueue(words, {}, { ...settings, newPerDay: 2 }, now, today);
-  assert.deepEqual(queue.map((item) => item.card.id), ['ren:read', 'kou:read']);
+  assert.deepEqual(queue.map((item) => item.card.id), []);
 
   const cards = {
     'ren:read': { ...freshCard('ren:read', 'ren', 'read'), status: 'learning', due: now - 1000 },
@@ -81,7 +81,7 @@ test('the daily queue teaches reading faces before writing faces', () => {
   const summary = summarize(words, cards, { ...settings, newPerDay: 1 }, now, today);
   assert.equal(summary.learningDue, 1);
   assert.equal(summary.reviewDue, 1);
-  assert.equal(summary.budget, 0);
+  assert.equal(summary.due, 2);
   const due = buildQueue(words, cards, { ...settings, newPerDay: 1 }, now, today);
   assert.deepEqual(due.map((item) => item.card.id), ['ren:read', 'kou:read']);
 
