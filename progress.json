@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T07:46:23.894Z",
+  "updated": "2026-10-31T07:46:31.389Z",
   "cards": {
     "hao:read": {
       "id": "hao:read",
@@ -167,13 +167,18 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793432704312,
-      "lastReview": 1793432644312,
+      "due": 1793433149834,
+      "lastReview": 1793432789834,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T07:44:04.312Z",
           "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-10-31T07:46:29.834Z",
+          "grade": "hard",
           "direction": "read"
         }
       ]
