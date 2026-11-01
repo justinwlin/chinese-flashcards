@@ -42,14 +42,14 @@
     "example": {
       "hanzi": "日出。",
       "pinyin": "Rì chū.",
-      "english": "The sun rises."
+      "english": "The sun rises. (Tip: 日 is a square window with the sun's line across it. Don't mix it up with 月 moon, which is taller with two lines and open legs.)"
     },
     "tags": [
       "day1",
       "radical"
     ],
     "added": "2026-10-31",
-    "updated": "2026-10-31T00:00:00.000Z"
+    "updated": "2026-11-01T13:05:00.000Z"
   },
   {
     "id": "yue",
@@ -77,14 +77,14 @@
     "example": {
       "hanzi": "明天。",
       "pinyin": "Míng tiān.",
-      "english": "Tomorrow."
+      "english": "Tomorrow. (Tip: 明 = 日 sun + 月 moon side by side. Sun and moon together = bright.)"
     },
     "tags": [
       "day1",
       "compound"
     ],
     "added": "2026-10-31",
-    "updated": "2026-10-31T00:00:00.000Z"
+    "updated": "2026-11-01T13:05:00.000Z"
   },
   {
     "id": "shui",
@@ -112,14 +112,14 @@
     "example": {
       "hanzi": "女人。",
       "pinyin": "Nǚ rén.",
-      "english": "A woman."
+      "english": "A woman. (Tip: 女 looks like a person kneeling with crossed arms. It's the left half of 她 she and 好 good.)"
     },
     "tags": [
       "day1",
       "radical"
     ],
     "added": "2026-10-31",
-    "updated": "2026-10-31T00:00:00.000Z"
+    "updated": "2026-11-01T13:05:00.000Z"
   },
   {
     "id": "hao",
@@ -457,5 +457,124 @@
     ],
     "added": "2026-10-31",
     "updated": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "id": "yi",
+    "hanzi": "一",
+    "pinyin": "yī",
+    "meaning": "one",
+    "example": {
+      "hanzi": "一个人。",
+      "pinyin": "Yī gè rén.",
+      "english": "One person."
+    },
+    "tags": [
+      "week1",
+      "hsk1"
+    ],
+    "added": "2026-11-01",
+    "updated": "2026-11-01T13:05:00.000Z"
+  },
+  {
+    "id": "er",
+    "hanzi": "二",
+    "pinyin": "èr",
+    "meaning": "two",
+    "example": {
+      "hanzi": "二月。",
+      "pinyin": "Èr yuè.",
+      "english": "February. (Tip: 二 two lines = two; 二月 second month.)"
+    },
+    "tags": [
+      "week1",
+      "hsk1"
+    ],
+    "added": "2026-11-01",
+    "updated": "2026-11-01T13:05:00.000Z"
+  },
+  {
+    "id": "san",
+    "hanzi": "三",
+    "pinyin": "sān",
+    "meaning": "three",
+    "example": {
+      "hanzi": "三个朋友。",
+      "pinyin": "Sān gè péng you.",
+      "english": "Three friends."
+    },
+    "tags": [
+      "week1",
+      "hsk1"
+    ],
+    "added": "2026-11-01",
+    "updated": "2026-11-01T13:05:00.000Z"
+  },
+  {
+    "id": "da",
+    "hanzi": "大",
+    "pinyin": "dà",
+    "meaning": "big",
+    "example": {
+      "hanzi": "大人。",
+      "pinyin": "Dà rén.",
+      "english": "An adult. (Tip: 大 is 人 a person stretching their arms out wide = big.)"
+    },
+    "tags": [
+      "week1",
+      "hsk1"
+    ],
+    "added": "2026-11-01",
+    "updated": "2026-11-01T13:05:00.000Z"
+  },
+  {
+    "id": "xiao",
+    "hanzi": "小",
+    "pinyin": "xiǎo",
+    "meaning": "small",
+    "example": {
+      "hanzi": "小狗。",
+      "pinyin": "Xiǎo gǒu.",
+      "english": "A small dog."
+    },
+    "tags": [
+      "week1",
+      "hsk1"
+    ],
+    "added": "2026-11-01",
+    "updated": "2026-11-01T13:05:00.000Z"
+  },
+  {
+    "id": "mama",
+    "hanzi": "妈妈",
+    "pinyin": "mā ma",
+    "meaning": "mom",
+    "example": {
+      "hanzi": "我的妈妈。",
+      "pinyin": "Wǒ de mā ma.",
+      "english": "My mom. (Tip: 女 woman on the left + 马 mǎ for the sound.)"
+    },
+    "tags": [
+      "week1",
+      "hsk1"
+    ],
+    "added": "2026-11-01",
+    "updated": "2026-11-01T13:05:00.000Z"
+  },
+  {
+    "id": "ma",
+    "hanzi": "吗",
+    "pinyin": "ma",
+    "meaning": "question particle (yes/no)",
+    "example": {
+      "hanzi": "你好吗？",
+      "pinyin": "Nǐ hǎo ma?",
+      "english": "How are you? (Tip: 口 mouth + 马 mǎ sound = a spoken question word.)"
+    },
+    "tags": [
+      "week1",
+      "hsk1"
+    ],
+    "added": "2026-11-01",
+    "updated": "2026-11-01T13:05:00.000Z"
   }
 ]
