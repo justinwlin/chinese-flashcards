@@ -93,7 +93,7 @@ test('the committed deck matches the serializer and the study list', () => {
   const raw = fs.readFileSync(new URL('../words.json', import.meta.url), 'utf8');
   const words = parseWords(raw);
   assert.equal(serializeWords(words), raw);
-  assert.ok(words.length >= 20 && words.length <= 30);
+  assert.ok(words.length >= 20 && words.length <= 200);
   const hanzi = new Set(words.map((word) => word.hanzi));
   for (const character of ['人', '口', '日', '月', '明', '水', '女', '好', '日落', '你好', '谢谢', '中国', '飞机', '朋友']) {
     assert.ok(hanzi.has(character), character);

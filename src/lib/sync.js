@@ -1,5 +1,7 @@
 import { putContent, readContent } from './github.js';
 import {
+  buildQueue,
+  enumerateCards,
   mergeCards,
   parseProgress,
   parseWords,
@@ -24,9 +26,41 @@ function progressBody(text, words) {
   });
 }
 
-/** A finished due set, or the last card of a Learn new words batch, syncs immediately. */
-export function shouldSyncSetNow({ queueEmpty, batchJustFinished }) {
-  return Boolean(queueEmpty || batchJustFinished);
+/**
+ * Sync immediately only when this sitting is over: nothing is due, no Learn-new
+ * card is still queued, and no learning or relearning card will come back.
+ * A 1- or 10-minute step is not the end of the set. The queued flag stays on a
+ * card after it leaves "new", so a later grade of that card is not a new finish.
+ */
+export function shouldSyncSetNow({ queueEmpty, learningPending = false, batchPending = false }) {
+  return Boolean(queueEmpty) && !learningPending && !batchPending;
+}
+
+/**
+ * Decide whether the grade that produced `cards` should commit now.
+ * While a learning step is waiting to come back, the idle wait runs until
+ * that step is due, so the gap itself does not become a commit.
+ */
+export function planSyncAfterGrade({ words, cards, settings, now, idleMs = 15000 }) {
+  let learningPending = false;
+  let batchPending = false;
+  let nextDue = null;
+  for (const { card } of enumerateCards(words, cards, settings)) {
+    if (card.status === 'learning' || card.status === 'relearning') learningPending = true;
+    if (card.status === 'new' && card.queued) batchPending = true;
+    if (card.status !== 'new' && card.due > now && (nextDue === null || card.due < nextDue)) {
+      nextDue = card.due;
+    }
+  }
+  const queueEmpty = buildQueue(words, cards, settings, now).length === 0;
+  if (shouldSyncSetNow({ queueEmpty, learningPending, batchPending })) {
+    return { when: 'now', delayMs: 0 };
+  }
+  if (queueEmpty && learningPending) {
+    const untilStep = nextDue == null ? 0 : Math.max(0, nextDue - now);
+    return { when: 'later', delayMs: untilStep + idleMs };
+  }
+  return { when: 'later', delayMs: idleMs };
 }
 
 export function hasReviewedCards(cards) {

@@ -25,13 +25,12 @@ import {
   mergeTombstones,
   parseWords,
   publicWord,
-  buildQueue,
   queueUnseen,
   unseenCards,
 } from './lib/merge.js';
 import { normalizeSettings } from './lib/settings.js';
 import { warmVoices } from './lib/speech.js';
-import { formatSyncLine, shouldSyncSetNow, syncDeck } from './lib/sync.js';
+import { formatSyncLine, planSyncAfterGrade, syncDeck } from './lib/sync.js';
 import { applyTheme } from './lib/theme.js';
 
 const stateRef = {
@@ -154,10 +153,10 @@ export function App() {
     }
   };
 
-  const scheduleSync = () => {
+  const scheduleSync = (delay = SYNC_IDLE_MS) => {
     if (!String(stateRef.current.token || '').trim()) return;
     window.clearTimeout(syncTimer);
-    syncTimer = window.setTimeout(() => runSync(), SYNC_IDLE_MS);
+    syncTimer = window.setTimeout(() => runSync(), delay);
   };
 
   const flushSync = () => {
@@ -331,13 +330,15 @@ export function App() {
     publish({ cards: nextCards });
     setUndo({ previous, id: next.id });
     setNow(reviewedAt);
-    const queue = buildQueue(stateRef.current.words, nextCards, stateRef.current.settings, reviewedAt);
-    const queuedLeft = Object.values(nextCards).some((card) => card.status === 'new' && card.queued);
-    if (shouldSyncSetNow({ queueEmpty: queue.length === 0, batchJustFinished: Boolean(item.card.queued) && !queuedLeft })) {
-      flushSync();
-    } else {
-      scheduleSync();
-    }
+    const plan = planSyncAfterGrade({
+      words: stateRef.current.words,
+      cards: nextCards,
+      settings: stateRef.current.settings,
+      now: reviewedAt,
+      idleMs: SYNC_IDLE_MS,
+    });
+    if (plan.when === 'now') flushSync();
+    else scheduleSync(plan.delayMs);
   };
 
   const undoGrade = async () => {
