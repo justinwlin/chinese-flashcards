@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-31T22:03:59.432Z",
+  "updated": "2026-11-01T15:35:38.013Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -30,14 +30,14 @@
       "wordId": "feiji",
       "hanzi": "飞机",
       "direction": "read",
-      "status": "learning",
+      "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 0,
-      "repetitions": 0,
+      "interval": 1,
+      "repetitions": 1,
       "lapses": 0,
-      "due": 1793484586824,
-      "lastReview": 1793484226824,
+      "due": 1793633722938,
+      "lastReview": 1793547322938,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -48,6 +48,11 @@
         {
           "at": "2026-10-31T22:03:46.824Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:35:22.938Z",
+          "grade": "good",
           "direction": "read"
         }
       ],
@@ -108,8 +113,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484485315,
-      "lastReview": 1793484125315,
+      "due": 1793547366051,
+      "lastReview": 1793547306051,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -131,6 +136,11 @@
           "at": "2026-10-31T22:02:05.315Z",
           "grade": "hard",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:35:06.051Z",
+          "grade": "again",
+          "direction": "read"
         }
       ]
     },
@@ -145,12 +155,17 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484245262,
-      "lastReview": 1793484185262,
+      "due": 1793547341461,
+      "lastReview": 1793547281461,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:03:05.262Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:34:41.461Z",
           "grade": "again",
           "direction": "read"
         }
@@ -250,8 +265,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484590795,
-      "lastReview": 1793484230795,
+      "due": 1793547387220,
+      "lastReview": 1793547327220,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -262,6 +277,11 @@
         {
           "at": "2026-10-31T22:03:50.795Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:35:27.220Z",
+          "grade": "again",
           "direction": "read"
         }
       ],
@@ -300,8 +320,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484599104,
-      "lastReview": 1793484239104,
+      "due": 1793547691153,
+      "lastReview": 1793547331153,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -328,6 +348,11 @@
           "at": "2026-10-31T22:03:59.104Z",
           "grade": "hard",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:35:31.153Z",
+          "grade": "hard",
+          "direction": "read"
         }
       ]
     },
@@ -342,8 +367,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484296188,
-      "lastReview": 1793484236188,
+      "due": 1793547656037,
+      "lastReview": 1793547296037,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -370,6 +395,11 @@
           "at": "2026-10-31T22:03:56.188Z",
           "grade": "again",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:34:56.037Z",
+          "grade": "hard",
+          "direction": "read"
         }
       ]
     },
@@ -384,12 +414,17 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484247783,
-      "lastReview": 1793484187783,
+      "due": 1793547345707,
+      "lastReview": 1793547285707,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:03:07.783Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:34:45.707Z",
           "grade": "again",
           "direction": "read"
         }
@@ -446,19 +481,24 @@
       "wordId": "ta-she",
       "hanzi": "她",
       "direction": "read",
-      "status": "learning",
+      "status": "review",
       "step": 0,
-      "ease": 2.5,
-      "interval": 0,
-      "repetitions": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
       "lapses": 0,
-      "due": 1793484531266,
-      "lastReview": 1793484171266,
+      "due": 1793892917459,
+      "lastReview": 1793547317459,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:02:51.266Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:35:17.459Z",
+          "grade": "easy",
           "direction": "read"
         }
       ],
@@ -469,19 +509,24 @@
       "wordId": "ta",
       "hanzi": "他",
       "direction": "read",
-      "status": "learning",
+      "status": "review",
       "step": 0,
-      "ease": 2.5,
-      "interval": 0,
-      "repetitions": 0,
+      "ease": 2.65,
+      "interval": 4,
+      "repetitions": 1,
       "lapses": 0,
-      "due": 1793484528685,
-      "lastReview": 1793484168685,
+      "due": 1793892915013,
+      "lastReview": 1793547315013,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:02:48.685Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:35:15.013Z",
+          "grade": "easy",
           "direction": "read"
         }
       ],
@@ -572,8 +617,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484482840,
-      "lastReview": 1793484122840,
+      "due": 1793547361934,
+      "lastReview": 1793547301934,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -600,6 +645,11 @@
           "at": "2026-10-31T22:02:02.840Z",
           "grade": "hard",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:35:01.934Z",
+          "grade": "again",
+          "direction": "read"
         }
       ]
     },
@@ -614,12 +664,17 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484241782,
-      "lastReview": 1793484181782,
+      "due": 1793547335382,
+      "lastReview": 1793547275382,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:03:01.782Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:34:35.382Z",
           "grade": "again",
           "direction": "read"
         }
@@ -637,12 +692,17 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793484243808,
-      "lastReview": 1793484183808,
+      "due": 1793547338209,
+      "lastReview": 1793547278209,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:03:03.808Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:34:38.209Z",
           "grade": "again",
           "direction": "read"
         }
@@ -654,19 +714,24 @@
       "wordId": "zhongguo",
       "hanzi": "中国",
       "direction": "read",
-      "status": "learning",
+      "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 0,
-      "repetitions": 0,
+      "interval": 1,
+      "repetitions": 1,
       "lapses": 0,
-      "due": 1793484505208,
-      "lastReview": 1793484145208,
+      "due": 1793633711081,
+      "lastReview": 1793547311081,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:02:25.208Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:35:11.081Z",
+          "grade": "good",
           "direction": "read"
         }
       ],
