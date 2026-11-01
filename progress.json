@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-01T15:35:38.013Z",
+  "updated": "2026-11-01T15:36:36.042Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -113,8 +113,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793547366051,
-      "lastReview": 1793547306051,
+      "due": 1793547447062,
+      "lastReview": 1793547387062,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -141,6 +141,11 @@
           "at": "2026-11-01T15:35:06.051Z",
           "grade": "again",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:36:27.062Z",
+          "grade": "again",
+          "direction": "read"
         }
       ]
     },
@@ -155,8 +160,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793547341461,
-      "lastReview": 1793547281461,
+      "due": 1793547434115,
+      "lastReview": 1793547374115,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -166,6 +171,11 @@
         },
         {
           "at": "2026-11-01T15:34:41.461Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:36:14.115Z",
           "grade": "again",
           "direction": "read"
         }
@@ -259,14 +269,14 @@
       "wordId": "pengyou",
       "hanzi": "朋友",
       "direction": "read",
-      "status": "learning",
+      "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 0,
-      "repetitions": 0,
+      "interval": 1,
+      "repetitions": 1,
       "lapses": 0,
-      "due": 1793547387220,
-      "lastReview": 1793547327220,
+      "due": 1793633791044,
+      "lastReview": 1793547391044,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -282,6 +292,11 @@
         {
           "at": "2026-11-01T15:35:27.220Z",
           "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:36:31.044Z",
+          "grade": "good",
           "direction": "read"
         }
       ],
@@ -414,8 +429,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793547345707,
-      "lastReview": 1793547285707,
+      "due": 1793547438695,
+      "lastReview": 1793547378695,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -425,6 +440,11 @@
         },
         {
           "at": "2026-11-01T15:34:45.707Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:36:18.695Z",
           "grade": "again",
           "direction": "read"
         }
@@ -617,8 +637,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793547361934,
-      "lastReview": 1793547301934,
+      "due": 1793547444216,
+      "lastReview": 1793547384216,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -650,6 +670,11 @@
           "at": "2026-11-01T15:35:01.934Z",
           "grade": "again",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:36:24.216Z",
+          "grade": "again",
+          "direction": "read"
         }
       ]
     },
@@ -664,8 +689,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793547335382,
-      "lastReview": 1793547275382,
+      "due": 1793547418373,
+      "lastReview": 1793547358373,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -675,6 +700,11 @@
         },
         {
           "at": "2026-11-01T15:34:35.382Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:35:58.373Z",
           "grade": "again",
           "direction": "read"
         }
@@ -692,8 +722,8 @@
       "interval": 0,
       "repetitions": 0,
       "lapses": 0,
-      "due": 1793547338209,
-      "lastReview": 1793547278209,
+      "due": 1793547427856,
+      "lastReview": 1793547367856,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -703,6 +733,11 @@
         },
         {
           "at": "2026-11-01T15:34:38.209Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-01T15:36:07.856Z",
           "grade": "again",
           "direction": "read"
         }
