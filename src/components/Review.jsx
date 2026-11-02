@@ -19,14 +19,12 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
   const summary = summarize(words, cards, settings, now, today);
   const queue = buildQueue(words, cards, settings, now, today);
   const current = queue[0] || null;
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    setRevealed(false);
-  }, [current?.card.id, current?.card.due, current?.card.status]);
+  const revealToken = current ? `${current.card.id}:${current.card.due}:${current.card.status}` : '';
+  const [openToken, setOpenToken] = useState('');
+  const revealed = openToken === revealToken && revealToken !== '';
 
   const reveal = () => {
-    setRevealed(true);
+    setOpenToken(revealToken);
     if (settings.speakOnReveal && current) speakChinese(current.word.hanzi);
   };
 
@@ -127,24 +125,26 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
             </div>
           </article>
 
-          {revealed ? (
-            <div class="grades">
-              {RATING_LABELS.map(([rating, label]) => (
-                <button
-                  key={rating}
-                  type="button"
-                  class={`grade grade-${rating}`}
-                  onClick={() => onGrade(current, rating)}
-                >
-                  <span>{label}</span>
-                  <small>{formatDelay(delays[rating])}</small>
-                </button>
-              ))}
-            </div>
-          ) : (
-            <button type="button" class="primary" onClick={reveal}>Show answer</button>
-          )}
-          <p class="left">{summary.remaining} left today</p>
+          <div class="dock">
+            <p class="left">{summary.remaining} left today</p>
+            {revealed ? (
+              <div class="grades">
+                {RATING_LABELS.map(([rating, label]) => (
+                  <button
+                    key={rating}
+                    type="button"
+                    class={`grade grade-${rating}`}
+                    onClick={() => onGrade(current, rating)}
+                  >
+                    <span>{label}</span>
+                    <small>{formatDelay(delays[rating])}</small>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <button type="button" class="primary" onClick={reveal}>Show answer</button>
+            )}
+          </div>
         </>
       ) : (
         <article class="card empty-card">

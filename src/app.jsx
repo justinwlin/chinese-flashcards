@@ -213,6 +213,18 @@ export function App() {
   }, []);
 
   useEffect(() => {
+    const onFocus = (event) => {
+      const el = event.target;
+      if (!(el instanceof HTMLElement) || !el.matches('input, textarea, select')) return;
+      window.setTimeout(() => {
+        el.scrollIntoView({ block: 'center', inline: 'nearest' });
+      }, 280);
+    };
+    document.addEventListener('focusin', onFocus);
+    return () => document.removeEventListener('focusin', onFocus);
+  }, []);
+
+  useEffect(() => {
     const onHash = () => setRoute(readRoute());
     window.addEventListener('hashchange', onHash);
     return () => window.removeEventListener('hashchange', onHash);
@@ -301,8 +313,8 @@ export function App() {
     ).slice(0, count);
     if (!picked.length) return;
     const cards = queueUnseen(stateRef.current.cards, picked);
-    await replaceCards(cards);
     publish({ cards });
+    await replaceCards(cards);
   };
 
   const removeWord = async (word) => {
@@ -325,11 +337,11 @@ export function App() {
     const previous = stateRef.current.cards[item.card.id] || null;
     const next = withReview(item.card, rating, reviewedAt, item.word.hanzi);
     if (item.card.status === 'new') next.introducedOn = dayKey(reviewedAt);
-    await putCard(next);
     const nextCards = { ...stateRef.current.cards, [next.id]: next };
     publish({ cards: nextCards });
     setUndo({ previous, id: next.id });
     setNow(reviewedAt);
+    await putCard(next);
     const plan = planSyncAfterGrade({
       words: stateRef.current.words,
       cards: nextCards,
@@ -439,11 +451,13 @@ export function App() {
         </header>
         {ready && (
           <div class="sync-bar">
-            <p class="sync-line" role="status" title={lastSync?.commit || undefined}>{formatSyncLine(lastSync)}</p>
+            <div class="sync-main">
+              <p class="sync-line" role="status" title={lastSync?.commit || undefined}>{formatSyncLine(lastSync)}</p>
+              <button type="button" class="sync-now" onClick={() => runSync(undefined, { manual: true })} disabled={syncing}>
+                {syncing ? 'Syncing…' : 'Sync now'}
+              </button>
+            </div>
             {syncMessage && <p class={syncIsError ? 'form-error' : 'sync-message'} role="status">{syncMessage}</p>}
-            <button type="button" class="sync-now" onClick={() => runSync(undefined, { manual: true })} disabled={syncing}>
-              {syncing ? 'Syncing…' : 'Sync now'}
-            </button>
           </div>
         )}
         {!ready && <article class="card empty-card"><p class="hanzi hanzi-lg" lang="zh-CN">文</p><p>Opening your deck…</p></article>}

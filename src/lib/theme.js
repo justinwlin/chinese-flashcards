@@ -7,7 +7,7 @@ export function applyTheme(theme) {
   } catch {
     /* Private mode can block localStorage. The in-memory theme still applies. */
   }
-  const color = dark ? '#141210' : '#f4efe6';
+  const color = dark ? '#141210' : '#f3eee6';
   document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
     meta.setAttribute('content', color);
   });
