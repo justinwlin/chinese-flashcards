@@ -22,6 +22,7 @@ export function WordForm({ words, existing, syncing, onSave, onDelete }) {
   const [exampleHanzi, setExampleHanzi] = useState(existing?.example?.hanzi || '');
   const [examplePinyin, setExamplePinyin] = useState(existing?.example?.pinyin || '');
   const [exampleEnglish, setExampleEnglish] = useState(existing?.example?.english || '');
+  const [tip, setTip] = useState(existing?.tip || '');
   const [tags, setTags] = useState((existing?.tags || []).join(', '));
   const [error, setError] = useState('');
 
@@ -40,6 +41,7 @@ export function WordForm({ words, existing, syncing, onSave, onDelete }) {
       english: exampleEnglish.trim(),
     };
     const hasExample = example.hanzi || example.pinyin || example.english;
+    const nextTip = tip.trim();
     const now = new Date();
     const word = {
       id: existing?.id || uniqueId(nextPinyin, nextHanzi, words),
@@ -47,6 +49,7 @@ export function WordForm({ words, existing, syncing, onSave, onDelete }) {
       pinyin: nextPinyin,
       meaning: nextMeaning,
       ...(hasExample ? { example } : {}),
+      ...(nextTip ? { tip: nextTip } : {}),
       tags: parseTags(tags),
       added: existing?.added || dayKey(now.getTime()),
       updated: now.toISOString(),
@@ -81,6 +84,10 @@ export function WordForm({ words, existing, syncing, onSave, onDelete }) {
       <label>
         Example English
         <input value={exampleEnglish} onInput={(event) => setExampleEnglish(event.currentTarget.value)} autoComplete="off" placeholder="How are you?" />
+      </label>
+      <label>
+        Tip
+        <textarea value={tip} onInput={(event) => setTip(event.currentTarget.value)} autoComplete="off" placeholder="A memory hook" rows={3} />
       </label>
       <label>
         Tags

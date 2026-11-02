@@ -306,6 +306,21 @@ h2 { margin: 0 0 8px; font-size: 22px; }
   overflow-wrap: anywhere;
 }
 
+.tip {
+  width: 100%;
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.tip-label {
+  font-weight: 750;
+  color: var(--ink);
+}
+
 .legend {
   display: flex;
   gap: 10px;
@@ -382,7 +397,7 @@ h2 { margin: 0 0 8px; font-size: 22px; }
   color: var(--bg);
 }
 
-.search input, .form input, .settings input[type="text"], .settings input[type="password"], .settings input[type="number"] {
+.search input, .form input, .form textarea, .settings input[type="text"], .settings input[type="password"], .settings input[type="number"] {
   width: 100%;
   min-height: 48px;
   border-radius: 12px;
@@ -391,6 +406,13 @@ h2 { margin: 0 0 8px; font-size: 22px; }
   color: var(--ink);
   padding: 12px 14px;
   font-size: 16px;
+}
+
+.form textarea {
+  min-height: 72px;
+  line-height: 1.4;
+  font-family: inherit;
+  resize: vertical;
 }
 
 .form, .settings { display: flex; flex-direction: column; gap: 14px; }

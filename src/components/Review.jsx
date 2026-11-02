@@ -112,6 +112,9 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
                     {current.word.example.english && <p class="example-en">{current.word.example.english}</p>}
                   </div>
                 )}
+                {current.word.tip?.trim() && (
+                  <p class="tip"><span class="tip-label">💡 Tip:</span> {current.word.tip.trim()}</p>
+                )}
                 <p class="legend" aria-hidden="true">
                   <span class="tone tone-1">1st</span>
                   <span class="tone tone-2">2nd</span>

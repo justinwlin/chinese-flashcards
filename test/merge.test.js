@@ -114,3 +114,57 @@ test('github file bodies round-trip through base64', () => {
   const text = '日落 rì luò\n';
   assert.equal(decodeBase64(encodeBase64(text)), text);
 });
+
+test('an optional tip is kept when words are saved', () => {
+  const word = {
+    id: 'yue',
+    hanzi: '月',
+    pinyin: 'yuè',
+    meaning: 'moon; month',
+    example: {
+      hanzi: '一月有月亮。',
+      pinyin: 'Yī yuè yǒu yuè liang.',
+      english: 'January has a moon.',
+    },
+    tip: '  月 is a tall crescent moon.  ',
+    tags: ['day1'],
+    added: '2026-10-31',
+    updated: '2026-10-31T12:10:00.000Z',
+    dirty: true,
+  };
+  const saved = JSON.parse(serializeWords([word]))[0];
+  assert.equal(saved.tip, '月 is a tall crescent moon.');
+  assert.equal(saved.example.english, 'January has a moon.');
+  assert.equal(saved.dirty, undefined);
+  const blank = JSON.parse(serializeWords([{ ...word, tip: '   ' }]))[0];
+  assert.equal(blank.tip, undefined);
+});
+
+test('memory tips live on tip, not inside the example sentence', () => {
+  const words = parseWords(fs.readFileSync(new URL('../words.json', import.meta.url), 'utf8'));
+  const tips = {
+    ri: "日 is a square window with the sun's line across it. Don't mix it up with 月 moon, which is taller with two lines and open legs.",
+    yue: '月 is a tall crescent moon with two cloud lines inside; it also means month.',
+    ming: '明 = 日 sun + 月 moon side by side. Sun and moon together = bright.',
+    nv: "女 looks like a person kneeling with crossed arms. It's the left half of 她 she and 好 good.",
+    riluo: '日 sun + 落 fall = the sun falls = sunset. 落 has 艹 grass on top and 氵 water on the left.',
+    zai: "在 has 土 earth at the bottom right: you're standing on the ground AT a place. Don't mix it up with 有 yǒu, which has 月 inside.",
+    zhe: "这 has 辶, the 'walking road' radical, wrapping around 文. Think: walk over HERE, this one. 这 zhè = this, 那 nà = that.",
+    na: '那 ends with 阝, an ear-shaped radical on the RIGHT. Point far away to THAT one. 这 zhè has 辶 road; 那 nà has 阝 ear.',
+    shenme: '什 = 亻 person + 十 ten; 么 is a little twist. You say shénme all the time; spot the 亻 person on the left.',
+    er: '二 two lines = two; 二月 second month.',
+    da: '大 is 人 a person stretching their arms out wide = big.',
+    mama: '女 woman on the left + 马 mǎ for the sound.',
+    ma: '口 mouth + 马 mǎ sound = a spoken question word.',
+  };
+  for (const [id, tip] of Object.entries(tips)) {
+    const word = words.find((entry) => entry.id === id);
+    assert.equal(word.tip, tip, id);
+    assert.equal(/\b(tip|memory|mnemonic)\b|💡/i.test(word.example.english), false, word.hanzi);
+  }
+  for (const word of words) {
+    const english = word.example?.english || '';
+    assert.equal(/\b(tip|memory|mnemonic)\b|💡/i.test(english), false, word.hanzi);
+    if (!tips[word.id]) assert.equal(word.tip, undefined, word.hanzi);
+  }
+});

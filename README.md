@@ -91,6 +91,7 @@ The file in the repo root is an array. Order is the order new cards are introduc
     "pinyin": "Rì luò hěn měi.",
     "english": "The sunset is beautiful."
   },
+  "tip": "日 sun + 落 fall = the sun falls = sunset.",
   "tags": ["compound"],
   "added": "2026-10-31",
   "updated": "2026-10-31T00:00:00.000Z"
@@ -103,7 +104,8 @@ The file in the repo root is an array. Order is the order new cards are introduc
 | `hanzi` | yes | The characters shown on the Read face. |
 | `pinyin` | yes | Tone marks, with a space between syllables (`nǐ hǎo`). The app can also split unspaced pinyin. |
 | `meaning` | yes | Short English gloss. |
-| `example` | no | `hanzi`, `pinyin`, and `english`. |
+| `example` | no | `hanzi`, `pinyin`, and `english`. The example sentence stays separate from the memory tip. |
+| `tip` | no | Optional memory hook. Shown on the back of the card as its own line. Omitted when empty. Sync keeps this field. |
 | `tags` | no | For example `hsk1`, `day1`, `radical`, `compound`. Search matches tags. |
 | `added` | yes | `YYYY-MM-DD`. |
 | `updated` | no | ISO time. Sync keeps the newer edit. Set this to now if you put a deleted word back by hand. |
