@@ -354,13 +354,13 @@
     "example": {
       "hanzi": "我在家。",
       "pinyin": "Wǒ zài jiā.",
-      "english": "I am at home."
+      "english": "I am at home. (Tip: 在 has 土 earth at the bottom right: you're standing on the ground AT a place. Don't mix it up with 有 yǒu, which has 月 inside.)"
     },
     "tags": [
       "hsk1"
     ],
     "added": "2026-10-31",
-    "updated": "2026-10-31T00:00:00.000Z"
+    "updated": "2026-11-02T13:10:00.000Z"
   },
   {
     "id": "zhe",
@@ -370,13 +370,13 @@
     "example": {
       "hanzi": "这是水。",
       "pinyin": "Zhè shì shuǐ.",
-      "english": "This is water."
+      "english": "This is water. (Tip: 这 has 辶, the 'walking road' radical, wrapping around 文. Think: walk over HERE, this one. 这 zhè = this, 那 nà = that.)"
     },
     "tags": [
       "hsk1"
     ],
     "added": "2026-10-31",
-    "updated": "2026-10-31T00:00:00.000Z"
+    "updated": "2026-11-02T13:10:00.000Z"
   },
   {
     "id": "na",
@@ -386,13 +386,13 @@
     "example": {
       "hanzi": "那是月。",
       "pinyin": "Nà shì yuè.",
-      "english": "That is the moon."
+      "english": "That is the moon. (Tip: 那 ends with 阝, an ear-shaped radical on the RIGHT. Point far away to THAT one. 这 zhè has 辶 road; 那 nà has 阝 ear.)"
     },
     "tags": [
       "hsk1"
     ],
     "added": "2026-10-31",
-    "updated": "2026-10-31T00:00:00.000Z"
+    "updated": "2026-11-02T13:10:00.000Z"
   },
   {
     "id": "shenme",
@@ -402,13 +402,13 @@
     "example": {
       "hanzi": "这是什么？",
       "pinyin": "Zhè shì shén me?",
-      "english": "What is this?"
+      "english": "What is this? (Tip: 什 = 亻 person + 十 ten; 么 is a little twist. You say shénme all the time; spot the 亻 person on the left.)"
     },
     "tags": [
       "hsk1"
     ],
     "added": "2026-10-31",
-    "updated": "2026-10-31T00:00:00.000Z"
+    "updated": "2026-11-02T13:10:00.000Z"
   },
   {
     "id": "chi",
