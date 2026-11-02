@@ -16,6 +16,7 @@ export function WordList({ words }) {
         word.example?.hanzi,
         word.example?.pinyin,
         word.example?.english,
+        word.tip,
       ].filter(Boolean).join(' '));
       return blob.includes(needle) || word.hanzi.includes(query.trim());
     });

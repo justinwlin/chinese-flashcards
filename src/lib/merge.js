@@ -16,6 +16,8 @@ export function publicWord(word) {
       english: example.english || '',
     };
   }
+  const tip = typeof word.tip === 'string' ? word.tip.trim() : '';
+  if (tip) entry.tip = tip;
   if (Array.isArray(word.tags) && word.tags.length) entry.tags = [...word.tags];
   entry.added = word.added;
   if (word.updated) entry.updated = word.updated;

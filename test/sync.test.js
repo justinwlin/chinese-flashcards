@@ -182,6 +182,38 @@ test('an edited word is committed to words.json', async () => {
   }
 });
 
+test('syncing words.json from GitHub keeps an optional tip', async () => {
+  const remoteWord = {
+    id: 'ren',
+    hanzi: '人',
+    pinyin: 'rén',
+    meaning: 'person',
+    tip: 'A walking person.',
+    added: '2026-10-31',
+    updated: '2026-11-02T00:00:00.000Z',
+  };
+  const remoteText = `${JSON.stringify([remoteWord], null, 2)}\n`;
+  const fetchMock = installFetch((call) => {
+    if (call.options.method === 'PUT') throw new Error('should not rewrite a deck whose tip is already on GitHub');
+    if (String(call.url).includes('/contents/progress.json')) return response(404, { message: 'Not Found' });
+    return response(200, { sha: 'wordsha', content: encodeBase64(remoteText) });
+  });
+  try {
+    const result = await syncDeck({
+      token: 'github_pat_test',
+      settings,
+      words,
+      cards: {},
+      tombstones: {},
+    });
+    assert.equal(result.committed, false);
+    assert.equal(result.words[0].tip, 'A walking person.');
+    assert.equal(result.words[0].meaning, 'person');
+  } finally {
+    fetchMock.restore();
+  }
+});
+
 test('words.json 404 is an error, not an empty deck', async () => {
   const fetchMock = installFetch(() => response(404, { message: 'Not Found' }));
   try {
