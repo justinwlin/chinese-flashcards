@@ -44,6 +44,7 @@
       "pinyin": "Rì chū.",
       "english": "The sun rises."
     },
+    "tip": "日 is a square window with the sun's line across it. Don't mix it up with 月 moon, which is taller with two lines and open legs.",
     "tags": [
       "day1",
       "radical"
@@ -61,6 +62,7 @@
       "pinyin": "Yī yuè yǒu yuè liang.",
       "english": "January has a moon."
     },
+    "tip": "月 is a tall crescent moon with two cloud lines inside; it also means month.",
     "tags": [
       "day1",
       "hsk1",
@@ -79,6 +81,7 @@
       "pinyin": "Míng tiān.",
       "english": "Tomorrow."
     },
+    "tip": "明 = 日 sun + 月 moon side by side. Sun and moon together = bright.",
     "tags": [
       "day1",
       "compound"
@@ -114,6 +117,7 @@
       "pinyin": "Nǚ rén.",
       "english": "A woman."
     },
+    "tip": "女 looks like a person kneeling with crossed arms. It's the left half of 她 she and 好 good.",
     "tags": [
       "day1",
       "radical"
@@ -148,6 +152,7 @@
       "pinyin": "Rì luò hěn měi.",
       "english": "The sunset is beautiful."
     },
+    "tip": "日 sun + 落 fall = the sun falls = sunset. 落 has 艹 grass on top and 氵 water on the left.",
     "tags": [
       "compound"
     ],
@@ -356,6 +361,7 @@
       "pinyin": "Wǒ zài jiā.",
       "english": "I am at home."
     },
+    "tip": "在 has 土 earth at the bottom right: you're standing on the ground AT a place. Don't mix it up with 有 yǒu, which has 月 inside.",
     "tags": [
       "hsk1"
     ],
@@ -372,6 +378,7 @@
       "pinyin": "Zhè shì shuǐ.",
       "english": "This is water."
     },
+    "tip": "这 has 辶, the 'walking road' radical, wrapping around 文. Think: walk over HERE, this one. 这 zhè = this, 那 nà = that.",
     "tags": [
       "hsk1"
     ],
@@ -388,6 +395,7 @@
       "pinyin": "Nà shì yuè.",
       "english": "That is the moon."
     },
+    "tip": "那 ends with 阝, an ear-shaped radical on the RIGHT. Point far away to THAT one. 这 zhè has 辶 road; 那 nà has 阝 ear.",
     "tags": [
       "hsk1"
     ],
@@ -404,6 +412,7 @@
       "pinyin": "Zhè shì shén me?",
       "english": "What is this?"
     },
+    "tip": "什 = 亻 person + 十 ten; 么 is a little twist. You say shénme all the time; spot the 亻 person on the left.",
     "tags": [
       "hsk1"
     ],
@@ -485,6 +494,7 @@
       "pinyin": "Èr yuè.",
       "english": "February."
     },
+    "tip": "二 two lines = two; 二月 second month.",
     "tags": [
       "week1",
       "hsk1"
@@ -519,6 +529,7 @@
       "pinyin": "Dà rén.",
       "english": "An adult."
     },
+    "tip": "大 is 人 a person stretching their arms out wide = big.",
     "tags": [
       "week1",
       "hsk1"
@@ -553,6 +564,7 @@
       "pinyin": "Wǒ de mā ma.",
       "english": "My mom."
     },
+    "tip": "女 woman on the left + 马 mǎ for the sound.",
     "tags": [
       "week1",
       "hsk1"
@@ -570,6 +582,7 @@
       "pinyin": "Nǐ hǎo ma?",
       "english": "How are you?"
     },
+    "tip": "口 mouth + 马 mǎ sound = a spoken question word.",
     "tags": [
       "week1",
       "hsk1"
