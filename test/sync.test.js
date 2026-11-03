@@ -214,6 +214,106 @@ test('syncing words.json from GitHub keeps an optional tip', async () => {
   }
 });
 
+test('a stale local deck with the same clock does not push away remote tips', async () => {
+  const remote = {
+    id: 'ren',
+    hanzi: '人',
+    pinyin: 'rén',
+    meaning: 'person',
+    tip: 'A walking person.',
+    note: 'keep me',
+    added: '2026-10-31',
+    updated: '2026-10-31T00:00:00.000Z',
+  };
+  const remoteText = serializeWords([remote]);
+  const local = [{ ...remote }];
+  delete local[0].tip;
+  delete local[0].note;
+  const fetchMock = installFetch((call) => {
+    if (call.options.method === 'PUT') throw new Error('should not push words.json when the only difference was a missing remote field');
+    if (String(call.url).includes('/contents/progress.json')) return response(404, { message: 'Not Found' });
+    return response(200, { sha: 'wordsha', content: encodeBase64(remoteText) });
+  });
+  try {
+    const result = await syncDeck({
+      token: 'github_pat_test',
+      settings,
+      words: local,
+      cards: {},
+      tombstones: {},
+    });
+    assert.equal(result.committed, false);
+    assert.equal(result.words[0].tip, 'A walking person.');
+    assert.equal(result.words[0].note, 'keep me');
+    assert.equal(result.words[0].meaning, 'person');
+  } finally {
+    fetchMock.restore();
+  }
+});
+
+test('a newer local edit is pushed without dropping remote fields', async () => {
+  const remote = {
+    id: 'ren',
+    hanzi: '人',
+    pinyin: 'rén',
+    meaning: 'person',
+    tip: 'A walking person.',
+    note: 'keep me',
+    added: '2026-10-31',
+    updated: '2026-10-31T00:00:00.000Z',
+  };
+  const remoteText = serializeWords([remote]);
+  const local = [{ ...remote, meaning: 'human', updated: '2026-11-03T00:00:00.000Z', dirty: true }];
+  delete local[0].tip;
+  delete local[0].note;
+  const fetchMock = installFetch((call) => {
+    if (call.options.method === 'PUT' && call.url.endsWith('/contents/words.json')) {
+      const saved = JSON.parse(decodeBase64(call.body.content));
+      assert.equal(saved[0].meaning, 'human');
+      assert.equal(saved[0].tip, 'A walking person.');
+      assert.equal(saved[0].note, 'keep me');
+      return response(200, { content: { sha: 'blob' }, commit: { sha: COMMIT } });
+    }
+    if (String(call.url).includes('/contents/progress.json')) return response(404, { message: 'Not Found' });
+    return response(200, { sha: 'wordsha', content: encodeBase64(remoteText) });
+  });
+  try {
+    const result = await syncDeck({
+      token: 'github_pat_test',
+      settings,
+      words: local,
+      cards: {},
+      tombstones: {},
+    });
+    assert.equal(result.commitSha, COMMIT);
+    assert.equal(result.words[0].tip, 'A walking person.');
+  } finally {
+    fetchMock.restore();
+  }
+});
+
+test('words.json is not pushed when the write would remove a remote field', async () => {
+  const remoteWord = {
+    ...words[0],
+    tip: '   ',
+    updated: '2026-11-03T00:00:00.000Z',
+  };
+  const remoteText = `${JSON.stringify([remoteWord], null, 2)}\n`;
+  const fetchMock = installFetch((call) => {
+    if (call.options.method === 'PUT') throw new Error('should not push a words.json that drops fields');
+    if (String(call.url).includes('/contents/progress.json')) return response(404, { message: 'Not Found' });
+    return response(200, { sha: 'wordsha', content: encodeBase64(remoteText) });
+  });
+  try {
+    await assert.rejects(
+      () => syncDeck({ token: 'github_pat_test', settings, words, cards: {}, tombstones: {} }),
+      /Refusing to update words\.json because it would remove ren\.tip/,
+    );
+  } finally {
+    fetchMock.restore();
+  }
+});
+
 test('words.json 404 is an error, not an empty deck', async () => {
   const fetchMock = installFetch(() => response(404, { message: 'Not Found' }));
   try {
