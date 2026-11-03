@@ -7,7 +7,10 @@ import { decodeBase64, encodeBase64 } from '../src/lib/github.js';
 import {
   alignWords,
   applyTombstones,
+  assertWordsKeepFields,
   buildQueue,
+  droppedWordFields,
+  fillMissingWordFields,
   mergeCards,
   mergeWords,
   parseWords,
@@ -138,6 +141,66 @@ test('an optional tip is kept when words are saved', () => {
   assert.equal(saved.dirty, undefined);
   const blank = JSON.parse(serializeWords([{ ...word, tip: '   ' }]))[0];
   assert.equal(blank.tip, undefined);
+});
+
+test('a stale local word does not erase a remote tip or any other field', () => {
+  const stamp = '2026-11-02T19:30:00.000Z';
+  const remote = [{
+    id: 'ri',
+    hanzi: '日',
+    pinyin: 'rì',
+    meaning: 'sun; day',
+    tip: 'window',
+    note: 'keep me',
+    added: '2026-10-31',
+    updated: stamp,
+  }];
+  const sameClock = [{
+    id: 'ri',
+    hanzi: '日',
+    pinyin: 'rì',
+    meaning: 'sun; day',
+    added: '2026-10-31',
+    updated: stamp,
+  }];
+  const tied = mergeWords(sameClock, remote)[0];
+  assert.equal(tied.tip, 'window');
+  assert.equal(tied.note, 'keep me');
+  const newerLocal = [{ ...sameClock[0], meaning: 'sun', updated: '2026-11-03T00:00:00.000Z', dirty: true }];
+  const edited = mergeWords(newerLocal, remote)[0];
+  assert.equal(edited.meaning, 'sun');
+  assert.equal(edited.tip, 'window');
+  assert.equal(edited.note, 'keep me');
+});
+
+test('saving a word keeps fields that are not in the fixed list', () => {
+  const saved = JSON.parse(serializeWords([{
+    id: 'ri',
+    hanzi: '日',
+    pinyin: 'rì',
+    meaning: 'sun',
+    example: { hanzi: '日出。', pinyin: 'Rì chū.', english: 'The sun rises.', audio: 'ri.mp3' },
+    tip: 'window',
+    note: 'extra',
+    added: '2026-10-31',
+    dirty: true,
+  }]))[0];
+  assert.equal(saved.note, 'extra');
+  assert.equal(saved.example.audio, 'ri.mp3');
+  assert.equal(saved.tip, 'window');
+  assert.equal(saved.dirty, undefined);
+});
+
+test('a push that would remove a remote field is refused, and a repair puts it back', () => {
+  const previous = [{ id: 'ri', hanzi: '日', pinyin: 'rì', meaning: 'sun', tip: 'window', note: 'keep', added: '2026-10-31' }];
+  const stripped = [{ id: 'ri', hanzi: '日', pinyin: 'rì', meaning: 'day', added: '2026-10-31' }];
+  assert.deepEqual(droppedWordFields(previous, stripped), ['ri.tip', 'ri.note']);
+  assert.throws(() => assertWordsKeepFields(previous, stripped), /ri\.tip/);
+  const repaired = fillMissingWordFields(previous, stripped)[0];
+  assert.equal(repaired.meaning, 'day');
+  assert.equal(repaired.tip, 'window');
+  assert.equal(repaired.note, 'keep');
+  assert.deepEqual(droppedWordFields(previous, [repaired]), []);
 });
 
 test('memory tips live on tip, not inside the example sentence', () => {

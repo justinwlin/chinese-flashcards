@@ -1,6 +1,17 @@
 import { DIRECTIONS, cardId } from './day.js';
 import { freshCard } from './srs.js';
 
+const KNOWN_WORD_KEYS = new Set(['id', 'hanzi', 'pinyin', 'meaning', 'example', 'tip', 'tags', 'added', 'updated', 'dirty']);
+
+function copyUnknown(source, target, reserved) {
+  for (const key of Object.keys(source).sort()) {
+    if (reserved.has(key)) continue;
+    const value = source[key];
+    if (value == null || typeof value === 'function') continue;
+    target[key] = value;
+  }
+}
+
 export function publicWord(word) {
   const entry = {
     id: word.id,
@@ -9,18 +20,21 @@ export function publicWord(word) {
     meaning: word.meaning,
   };
   const example = word.example;
-  if (example && (example.hanzi || example.pinyin || example.english)) {
-    entry.example = {
+  if (example && typeof example === 'object') {
+    const built = {
       hanzi: example.hanzi || '',
       pinyin: example.pinyin || '',
       english: example.english || '',
     };
+    copyUnknown(example, built, new Set(['hanzi', 'pinyin', 'english']));
+    if (built.hanzi || built.pinyin || built.english || Object.keys(built).length > 3) entry.example = built;
   }
   const tip = typeof word.tip === 'string' ? word.tip.trim() : '';
   if (tip) entry.tip = tip;
   if (Array.isArray(word.tags) && word.tags.length) entry.tags = [...word.tags];
   entry.added = word.added;
   if (word.updated) entry.updated = word.updated;
+  copyUnknown(word, entry, KNOWN_WORD_KEYS);
   return entry;
 }
 
@@ -39,9 +53,34 @@ function stamp(word) {
   return word.updated || word.added || '';
 }
 
+function isPlain(value) {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+/** Start from `base`, then overlay values `extra` actually has. A missing key is not a deletion. */
+function overlayFields(base, extra) {
+  const out = { ...base };
+  if (isPlain(base.example)) out.example = { ...base.example };
+  for (const [key, value] of Object.entries(extra)) {
+    if (value == null || key === 'dirty') continue;
+    if (key === 'example' && isPlain(value)) {
+      const example = { ...(out.example || {}) };
+      for (const [subKey, subValue] of Object.entries(value)) {
+        if (subValue != null) example[subKey] = subValue;
+      }
+      out.example = example;
+      continue;
+    }
+    out[key] = Array.isArray(value) ? [...value] : value;
+  }
+  return out;
+}
+
 /**
- * Newer `updated` (then `added`) wins. `primary` wins a tie so the device
- * that is syncing keeps its copy when clocks match.
+ * Newer `updated` (then `added`) wins keys that both copies have.
+ * `primary` wins a tie. The other copy is the base, so a field that exists
+ * only there (a tip the device has not seen, or any unknown field) is kept.
+ * `secondary` is merged first; call mergeWords(local, remote) so remote is that base.
  */
 export function mergeWords(primary, secondary) {
   const map = new Map();
@@ -51,15 +90,55 @@ export function mergeWords(primary, secondary) {
       map.set(word.id, { ...word });
       return;
     }
-    const prevTime = stamp(prev);
-    const nextTime = stamp(word);
-    if (nextTime > prevTime || (nextTime === prevTime && preferred)) {
-      map.set(word.id, { ...word, dirty: Boolean(word.dirty || prev.dirty) });
-    }
+    const incomingWins = stamp(word) > stamp(prev) || (stamp(word) === stamp(prev) && preferred);
+    const merged = overlayFields(incomingWins ? prev : word, incomingWins ? word : prev);
+    if (word.dirty || prev.dirty) merged.dirty = true;
+    map.set(word.id, merged);
   };
   for (const word of secondary) consider(word, false);
   for (const word of primary) consider(word, true);
   return [...map.values()];
+}
+
+function isBlank(value) {
+  return value == null || value === '';
+}
+
+/** Field paths on `remoteWords` that `outgoingWords` would erase. A missing word is a deletion, not a dropped field. */
+export function droppedWordFields(remoteWords, outgoingWords) {
+  const byId = new Map(outgoingWords.map((word) => [word.id, word]));
+  const drops = [];
+  for (const remote of remoteWords || []) {
+    const next = byId.get(remote.id);
+    if (!next) continue;
+    for (const [key, value] of Object.entries(remote)) {
+      if (key === 'dirty' || key === 'example' || isBlank(value)) continue;
+      if (isBlank(next[key])) drops.push(`${remote.id}.${key}`);
+    }
+    if (!isPlain(remote.example)) continue;
+    for (const [key, value] of Object.entries(remote.example)) {
+      if (isBlank(value)) continue;
+      if (!isPlain(next.example) || isBlank(next.example[key])) drops.push(`${remote.id}.example.${key}`);
+    }
+  }
+  return drops;
+}
+
+export function assertWordsKeepFields(remoteWords, outgoingWords) {
+  const drops = droppedWordFields(remoteWords, outgoingWords);
+  if (drops.length) {
+    throw new Error(`Refusing to update words.json because it would remove ${drops.join(', ')}.`);
+  }
+}
+
+/** Keep a newer edit, but put back any field the incoming copy simply does not have. */
+export function fillMissingWordFields(previousWords, nextWords) {
+  const previousById = new Map((previousWords || []).map((word) => [word.id, word]));
+  return nextWords.map((word) => {
+    const previous = previousById.get(word.id);
+    if (!previous) return { ...word };
+    return overlayFields(previous, word);
+  });
 }
 
 export function mergeTombstones(local, remote) {

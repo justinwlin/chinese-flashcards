@@ -3,6 +3,7 @@ import {
   buildQueue,
   enumerateCards,
   mergeCards,
+  assertWordsKeepFields,
   parseProgress,
   parseWords,
   reconcileRemote,
@@ -115,6 +116,9 @@ export async function syncDeck({ token, settings, words, cards, tombstones, keep
       remoteTombs: remoteProgress.deletedWords,
     });
     const wordsText = serializeWords(reconciled.words);
+    if (remoteWordsFile.text !== wordsText) {
+      assertWordsKeepFields(remoteWords, parseWords(wordsText));
+    }
     const progressText = serializeProgress({
       cards: mergedCards,
       words: reconciled.words,
