@@ -1,3 +1,5 @@
+import { cardId } from './day.js';
+
 /**
  * SM-2-style scheduler with Anki-like learning steps.
  *
@@ -179,6 +181,62 @@ export function withReview(card, rating, reviewedAt, hanzi = '') {
     },
   ];
   return next;
+}
+
+/**
+ * Four Agains in a row mark the card struggling. Two Goods or Easies in a row clear it.
+ * Hard breaks a run but does not clear the flag. Read from the review log only.
+ */
+export function isStruggling(card) {
+  const reviews = Array.isArray(card?.reviews) ? card.reviews : [];
+  let struggling = false;
+  let againRun = 0;
+  let passRun = 0;
+  for (const review of reviews) {
+    const grade = review?.grade;
+    if (grade === 'again') {
+      againRun += 1;
+      passRun = 0;
+      if (againRun >= 4) struggling = true;
+    } else if (grade === 'good' || grade === 'easy') {
+      againRun = 0;
+      passRun += 1;
+      if (passRun >= 2) struggling = false;
+    } else if (grade === 'hard') {
+      againRun = 0;
+      passRun = 0;
+    }
+  }
+  return struggling;
+}
+
+export function strugglingWords(words, cards) {
+  return (words || []).filter((word) => (
+    ['read', 'write'].some((direction) => isStruggling(cards?.[cardId(word.id, direction)]))
+  ));
+}
+
+/** After Again on a struggling card, show that card once more at the end of this session. */
+export function nextPracticeQueue(extraIds, gradedId, rating, card) {
+  const rest = (extraIds || []).filter((id) => id !== gradedId);
+  if (rating === 'again' && isStruggling(card)) rest.push(gradedId);
+  return rest;
+}
+
+/** Due queue first, then one extra pass for cards that are not already due. */
+export function sessionQueue(queue, words, cards, extraIds) {
+  const seen = new Set((queue || []).map((item) => item.card.id));
+  const wordsById = new Map((words || []).map((word) => [word.id, word]));
+  const extras = [];
+  for (const id of extraIds || []) {
+    if (seen.has(id)) continue;
+    const card = cards?.[id];
+    const word = card && wordsById.get(card.wordId);
+    if (!card || !word) continue;
+    seen.add(id);
+    extras.push({ word, card });
+  }
+  return [...(queue || []), ...extras];
 }
 
 export function formatDelay(ms) {

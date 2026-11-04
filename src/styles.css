@@ -268,6 +268,53 @@ h2 { margin: 0 0 8px; font-size: 22px; }
   line-height: 1.1;
 }
 
+.struggle {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.struggle-label {
+  margin: 0;
+  color: var(--hard);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.struggle-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.struggle-chip {
+  min-height: 44px;
+  min-width: 44px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--hard);
+  border-radius: 999px;
+  background: var(--bg-elev);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 750;
+}
+
+.struggle-chip span:last-child {
+  max-width: 9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+  font-weight: 650;
+  font-size: 14px;
+}
+
 .card {
   background: var(--bg-elev);
   border: 1px solid var(--line);
@@ -294,7 +341,15 @@ h2 { margin: 0 0 8px; font-size: 22px; }
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
   min-height: 44px;
+}
+
+.card-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
 }
 
 .pill {
@@ -306,6 +361,11 @@ h2 { margin: 0 0 8px; font-size: 22px; }
   font-weight: 750;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.pill-struggle {
+  border-color: var(--hard);
+  color: var(--hard);
 }
 
 .hanzi { font-family: var(--hanzi); font-weight: 600; }
