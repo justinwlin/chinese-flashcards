@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import { LearnNew } from './LearnNew.jsx';
 import { buildQueue, summarize } from '../lib/merge.js';
-import { formatDelay, previewDelays } from '../lib/srs.js';
+import { formatDelay, isStruggling, previewDelays, sessionQueue, strugglingWords } from '../lib/srs.js';
 import { dayKey } from '../lib/day.js';
 import { speakChinese } from '../lib/speech.js';
 import { Pinyin } from './Pinyin.jsx';
@@ -14,11 +14,14 @@ const RATING_LABELS = [
   ['easy', 'Easy'],
 ];
 
-export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onLearn, syncMessage, syncIsError }) {
+export function Review({ words, cards, settings, now, undo, practice, onGrade, onUndo, onLearn, syncMessage, syncIsError }) {
   const today = dayKey(now);
   const summary = summarize(words, cards, settings, now, today);
-  const queue = buildQueue(words, cards, settings, now, today);
+  const dueQueue = buildQueue(words, cards, settings, now, today);
+  const queue = sessionQueue(dueQueue, words, cards, practice);
   const current = queue[0] || null;
+  const struggle = strugglingWords(words, cards);
+  const left = summary.remaining + Math.max(0, queue.length - dueQueue.length);
   const revealToken = current ? `${current.card.id}:${current.card.due}:${current.card.status}` : '';
   const [openToken, setOpenToken] = useState('');
   const revealed = openToken === revealToken && revealToken !== '';
@@ -58,6 +61,19 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
         <span><b>{summary.due}</b> due</span>
         <span><b>{summary.unseen}</b> unseen</span>
       </div>
+      {struggle.length > 0 && (
+        <div class="struggle" aria-label="Struggling words">
+          <p class="struggle-label">{struggle.length} struggling</p>
+          <div class="struggle-row">
+            {struggle.map((word) => (
+              <a key={word.id} class="struggle-chip" href={`#/words/${encodeURIComponent(word.id)}`}>
+                <span lang="zh-CN">{word.hanzi}</span>
+                <span>{word.meaning}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
       {!current && <LearnNew unseen={summary.unseen} onLearn={onLearn} />}
 
       {undo && (
@@ -74,7 +90,10 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
           >
             <div class="card-body">
             <div class="card-tools">
-              <span class="pill">{current.card.direction === 'read' ? 'Read' : 'Write'}</span>
+              <span class="card-pills">
+                <span class="pill">{current.card.direction === 'read' ? 'Read' : 'Write'}</span>
+                {isStruggling(current.card) && <span class="pill pill-struggle">Struggling</span>}
+              </span>
               {(current.card.direction === 'read' || revealed) && (
                 <button
                   type="button"
@@ -126,7 +145,7 @@ export function Review({ words, cards, settings, now, undo, onGrade, onUndo, onL
           </article>
 
           <div class="dock">
-            <p class="left">{summary.remaining} left today</p>
+            <p class="left">{left} left today</p>
             {revealed ? (
               <div class="grades">
                 {RATING_LABELS.map(([rating, label]) => (

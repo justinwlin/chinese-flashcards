@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { Review } from './components/Review.jsx';
 import { Settings } from './components/Settings.jsx';
 import { WordForm } from './components/WordForm.jsx';
@@ -16,7 +16,7 @@ import {
   storageWarning,
 } from './lib/db.js';
 import { cardId, dayKey } from './lib/day.js';
-import { freshCard, withReview } from './lib/srs.js';
+import { freshCard, nextPracticeQueue, withReview } from './lib/srs.js';
 import {
   activeDirections,
   alignWords,
@@ -77,6 +77,8 @@ export function App() {
   const [warning, setWarning] = useState('');
   const [loadError, setLoadError] = useState('');
   const [undo, setUndo] = useState(null);
+  const [practice, setPractice] = useState([]);
+  const practiceRef = useRef([]);
   const [installEvent, setInstallEvent] = useState(null);
   const [updateReady, setUpdateReady] = useState(false);
 
@@ -338,8 +340,12 @@ export function App() {
     const next = withReview(item.card, rating, reviewedAt, item.word.hanzi);
     if (item.card.status === 'new') next.introducedOn = dayKey(reviewedAt);
     const nextCards = { ...stateRef.current.cards, [next.id]: next };
+    const previousPractice = practiceRef.current;
+    const nextPractice = nextPracticeQueue(previousPractice, next.id, rating, next);
+    practiceRef.current = nextPractice;
+    setPractice(nextPractice);
     publish({ cards: nextCards });
-    setUndo({ previous, id: next.id });
+    setUndo({ previous, id: next.id, practice: previousPractice });
     setNow(reviewedAt);
     await putCard(next);
     const plan = planSyncAfterGrade({
@@ -364,6 +370,9 @@ export function App() {
       await putCard(undo.previous);
     }
     publish({ cards: nextCards });
+    const previousPractice = undo.practice || [];
+    practiceRef.current = previousPractice;
+    setPractice(previousPractice);
     setUndo(null);
     scheduleSync();
   };
@@ -469,6 +478,7 @@ export function App() {
             settings={settings}
             now={now}
             undo={undo}
+            practice={practice}
             onGrade={grade}
             onUndo={undoGrade}
             onLearn={learnNew}
@@ -476,7 +486,7 @@ export function App() {
             syncIsError={syncIsError}
           />
         )}
-        {ready && route.name === 'words' && <WordList words={words} />}
+        {ready && route.name === 'words' && <WordList words={words} cards={cards} />}
         {ready && route.name === 'new' && (
           <WordForm key="new" words={words} syncing={syncing} onSave={saveWord} onDelete={removeWord} />
         )}

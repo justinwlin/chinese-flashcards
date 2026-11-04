@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'preact/hooks';
+import { cardId } from '../lib/day.js';
 import { searchable } from '../lib/pinyin.js';
+import { isStruggling } from '../lib/srs.js';
 import { Pinyin } from './Pinyin.jsx';
 
-export function WordList({ words }) {
+export function WordList({ words, cards }) {
   const [query, setQuery] = useState('');
   const needle = searchable(query.trim());
   const shown = useMemo(() => {
@@ -50,6 +52,9 @@ export function WordList({ words }) {
                 <span class="word-copy">
                   <Pinyin text={word.pinyin} />
                   <span class="meaning">{word.meaning}</span>
+                  {['read', 'write'].some((direction) => isStruggling(cards?.[cardId(word.id, direction)])) && (
+                    <span class="pill pill-struggle">Struggling</span>
+                  )}
                   {word.tags?.length > 0 && (
                     <span class="tags">{word.tags.map((tag) => <span key={tag}>{tag}</span>)}</span>
                   )}
