@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-04T13:48:25.257Z",
+  "updated": "2026-11-05T05:12:27.171Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -9,16 +9,21 @@
       "direction": "read",
       "status": "review",
       "step": 0,
-      "ease": 2.65,
-      "interval": 4,
-      "repetitions": 1,
+      "ease": 2.8,
+      "interval": 14,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793829774336,
-      "lastReview": 1793484174336,
+      "due": 1795065137630,
+      "lastReview": 1793855537630,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:02:54.336Z",
+          "grade": "easy",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:12:17.630Z",
           "grade": "easy",
           "direction": "read"
         }
@@ -124,12 +129,12 @@
       "direction": "read",
       "status": "review",
       "step": 0,
-      "ease": 2.5,
-      "interval": 1,
-      "repetitions": 1,
+      "ease": 2.35,
+      "interval": 2,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793828016035,
-      "lastReview": 1793741616035,
+      "due": 1794028318417,
+      "lastReview": 1793855518417,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -165,6 +170,11 @@
         {
           "at": "2026-11-03T21:33:36.035Z",
           "grade": "good",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:11:58.417Z",
+          "grade": "hard",
           "direction": "read"
         }
       ]
@@ -224,16 +234,21 @@
       "direction": "read",
       "status": "review",
       "step": 0,
-      "ease": 2.65,
-      "interval": 4,
-      "repetitions": 1,
+      "ease": 2.8,
+      "interval": 14,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793829765286,
-      "lastReview": 1793484165286,
+      "due": 1795065135917,
+      "lastReview": 1793855535917,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:02:45.286Z",
+          "grade": "easy",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:12:15.917Z",
           "grade": "easy",
           "direction": "read"
         }
@@ -275,11 +290,11 @@
       "status": "review",
       "step": 0,
       "ease": 2.3,
-      "interval": 1,
-      "repetitions": 2,
+      "interval": 2,
+      "repetitions": 3,
       "lapses": 1,
-      "due": 1793829338277,
-      "lastReview": 1793742938277,
+      "due": 1794028332526,
+      "lastReview": 1793855532526,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -309,6 +324,11 @@
         },
         {
           "at": "2026-11-03T21:55:38.277Z",
+          "grade": "good",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:12:12.526Z",
           "grade": "good",
           "direction": "read"
         }
@@ -392,11 +412,11 @@
       "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 1,
-      "repetitions": 1,
+      "interval": 3,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793828024082,
-      "lastReview": 1793741624082,
+      "due": 1794114721532,
+      "lastReview": 1793855521532,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -433,6 +453,11 @@
           "at": "2026-11-03T21:33:44.082Z",
           "grade": "good",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:12:01.532Z",
+          "grade": "good",
+          "direction": "read"
         }
       ]
     },
@@ -443,12 +468,12 @@
       "direction": "read",
       "status": "review",
       "step": 0,
-      "ease": 2.5,
-      "interval": 1,
-      "repetitions": 1,
+      "ease": 2.35,
+      "interval": 2,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793829335361,
-      "lastReview": 1793742935361,
+      "due": 1794028328942,
+      "lastReview": 1793855528942,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -490,6 +515,11 @@
           "at": "2026-11-03T21:55:35.361Z",
           "grade": "good",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:12:08.942Z",
+          "grade": "hard",
+          "direction": "read"
         }
       ]
     },
@@ -501,11 +531,11 @@
       "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 1,
-      "repetitions": 1,
+      "interval": 3,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793828007889,
-      "lastReview": 1793741607889,
+      "due": 1794114709149,
+      "lastReview": 1793855509149,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -527,6 +557,11 @@
           "at": "2026-11-03T21:33:27.889Z",
           "grade": "good",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:11:49.149Z",
+          "grade": "good",
+          "direction": "read"
         }
       ],
       "queued": true
@@ -538,16 +573,21 @@
       "direction": "read",
       "status": "review",
       "step": 0,
-      "ease": 2.65,
-      "interval": 4,
-      "repetitions": 1,
+      "ease": 2.8,
+      "interval": 14,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793829772932,
-      "lastReview": 1793484172932,
+      "due": 1795065136790,
+      "lastReview": 1793855536790,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:02:52.932Z",
+          "grade": "easy",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:12:16.790Z",
           "grade": "easy",
           "direction": "read"
         }
@@ -644,16 +684,21 @@
       "direction": "read",
       "status": "review",
       "step": 0,
-      "ease": 2.65,
-      "interval": 4,
-      "repetitions": 1,
+      "ease": 2.8,
+      "interval": 15,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793829756051,
-      "lastReview": 1793484156051,
+      "due": 1795151534748,
+      "lastReview": 1793855534748,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
           "at": "2026-10-31T22:02:36.051Z",
+          "grade": "easy",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:12:14.748Z",
           "grade": "easy",
           "direction": "read"
         }
@@ -729,11 +774,11 @@
       "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 1,
-      "repetitions": 1,
+      "interval": 3,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793828013440,
-      "lastReview": 1793741613440,
+      "due": 1794114713767,
+      "lastReview": 1793855513767,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -773,6 +818,11 @@
         },
         {
           "at": "2026-11-03T21:33:33.440Z",
+          "grade": "good",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:11:53.767Z",
           "grade": "good",
           "direction": "read"
         }
@@ -831,14 +881,14 @@
       "wordId": "zhe",
       "hanzi": "这",
       "direction": "read",
-      "status": "learning",
+      "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 0,
-      "repetitions": 0,
+      "interval": 1,
+      "repetitions": 1,
       "lapses": 0,
-      "due": 1793800443700,
-      "lastReview": 1793800083700,
+      "due": 1793941946768,
+      "lastReview": 1793855546768,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -869,6 +919,16 @@
         {
           "at": "2026-11-04T13:48:03.700Z",
           "grade": "hard",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:11:46.016Z",
+          "grade": "again",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-05T05:12:26.768Z",
+          "grade": "good",
           "direction": "read"
         }
       ],
