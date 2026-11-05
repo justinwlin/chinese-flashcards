@@ -26,6 +26,47 @@ const LAPSE_FACTOR = 0.2;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const MIN_MS = 60 * 1000;
 
+/** A read card he is already reviewing, and not currently struggling. */
+export function readSideReadyForWrite(card) {
+  if (!card || card.direction === 'write') return false;
+  if (card.status !== 'review') return false;
+  if (!Array.isArray(card.reviews) || card.reviews.length === 0) return false;
+  return !isStruggling(card);
+}
+
+/**
+ * Write cards for words the read side already knows. One new card per day,
+ * strongest read interval first, starting tomorrow. Existing write cards are left alone.
+ */
+export function planWriteCards(words, cards, now) {
+  const ready = [];
+  for (const word of words || []) {
+    const read = cards?.[cardId(word.id, 'read')];
+    if (cards?.[cardId(word.id, 'write')]) continue;
+    if (!readSideReadyForWrite(read)) continue;
+    ready.push({ word, read });
+  }
+  ready.sort((a, b) => {
+    const byInterval = (b.read.interval || 0) - (a.read.interval || 0);
+    if (byInterval) return byInterval;
+    const byReps = (b.read.repetitions || 0) - (a.read.repetitions || 0);
+    if (byReps) return byReps;
+    return String(a.word.id).localeCompare(String(b.word.id));
+  });
+  const created = {};
+  ready.forEach((item, index) => {
+    const id = cardId(item.word.id, 'write');
+    created[id] = {
+      ...freshCard(id, item.word.id, 'write'),
+      hanzi: item.word.hanzi || '',
+      status: 'learning',
+      step: 0,
+      due: now + (index + 1) * DAY_MS,
+    };
+  });
+  return created;
+}
+
 export function freshCard(id, wordId, direction) {
   return {
     id,

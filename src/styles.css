@@ -368,6 +368,11 @@ h2 { margin: 0 0 8px; font-size: 22px; }
   color: var(--hard);
 }
 
+.pill-write {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .hanzi { font-family: var(--hanzi); font-weight: 600; }
 
 .hanzi-xl { margin: 8px 0; font-size: clamp(72px, 20vw, 104px); line-height: 1.05; }

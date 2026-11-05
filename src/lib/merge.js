@@ -303,7 +303,10 @@ export function enumerateCards(words, cards, settings) {
   for (const word of words) {
     for (const direction of directions) {
       const id = cardId(word.id, direction);
-      const card = cards[id] ? { ...cards[id] } : freshCard(id, word.id, direction);
+      const stored = cards[id];
+      // A missing write card is not an unseen card. It is added only after the read side is known.
+      if (!stored && direction === 'write') continue;
+      const card = stored ? { ...stored } : freshCard(id, word.id, direction);
       items.push({ word, card });
     }
   }

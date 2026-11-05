@@ -91,7 +91,7 @@ export function Review({ words, cards, settings, now, undo, practice, onGrade, o
             <div class="card-body">
             <div class="card-tools">
               <span class="card-pills">
-                <span class="pill">{current.card.direction === 'read' ? 'Read' : 'Write'}</span>
+                <span class={`pill${current.card.direction === 'write' ? ' pill-write' : ''}`}>{current.card.direction === 'read' ? 'Read' : 'Write'}</span>
                 {isStruggling(current.card) && <span class="pill pill-struggle">Struggling</span>}
               </span>
               {(current.card.direction === 'read' || revealed) && (

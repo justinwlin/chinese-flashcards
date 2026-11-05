@@ -16,7 +16,7 @@ import {
   storageWarning,
 } from './lib/db.js';
 import { cardId, dayKey } from './lib/day.js';
-import { freshCard, nextPracticeQueue, withReview } from './lib/srs.js';
+import { freshCard, nextPracticeQueue, planWriteCards, withReview } from './lib/srs.js';
 import {
   activeDirections,
   alignWords,
@@ -183,7 +183,7 @@ export function App() {
       const nextToken = snap.kv.token || '';
       const nextTombs = snap.kv.tombstones || {};
       let nextWords = await orderFromSnapshot(snap.words, snap.kv.wordOrder);
-      const nextCards = Object.fromEntries(snap.cards.map((card) => [card.id, card]));
+      const loadedCards = Object.fromEntries(snap.cards.map((card) => [card.id, card]));
       try {
         const response = await fetch(`${import.meta.env.BASE_URL}words.json`);
         if (response.ok) {
@@ -194,6 +194,9 @@ export function App() {
       } catch {
         /* Offline launches keep the copy already stored on the device. */
       }
+      const writeCards = planWriteCards(nextWords, loadedCards, Date.now());
+      const nextCards = Object.keys(writeCards).length ? { ...loadedCards, ...writeCards } : loadedCards;
+      if (Object.keys(writeCards).length) await replaceCards(nextCards);
       if (cancel) return;
       applyTheme(nextSettings.theme);
       publish({
@@ -339,15 +342,18 @@ export function App() {
     const previous = stateRef.current.cards[item.card.id] || null;
     const next = withReview(item.card, rating, reviewedAt, item.word.hanzi);
     if (item.card.status === 'new') next.introducedOn = dayKey(reviewedAt);
-    const nextCards = { ...stateRef.current.cards, [next.id]: next };
+    const gradedCards = { ...stateRef.current.cards, [next.id]: next };
+    const writeCards = planWriteCards(stateRef.current.words, gradedCards, reviewedAt);
+    const nextCards = { ...gradedCards, ...writeCards };
     const previousPractice = practiceRef.current;
     const nextPractice = nextPracticeQueue(previousPractice, next.id, rating, next);
     practiceRef.current = nextPractice;
     setPractice(nextPractice);
     publish({ cards: nextCards });
-    setUndo({ previous, id: next.id, practice: previousPractice });
+    setUndo({ previous, id: next.id, practice: previousPractice, createdWriteIds: Object.keys(writeCards) });
     setNow(reviewedAt);
     await putCard(next);
+    for (const card of Object.values(writeCards)) await putCard(card);
     const plan = planSyncAfterGrade({
       words: stateRef.current.words,
       cards: nextCards,
@@ -368,6 +374,11 @@ export function App() {
     } else {
       nextCards[undo.id] = undo.previous;
       await putCard(undo.previous);
+    }
+    for (const id of undo.createdWriteIds || []) {
+      if ((nextCards[id]?.reviews || []).length) continue;
+      delete nextCards[id];
+      await deleteCard(id);
     }
     publish({ cards: nextCards });
     const previousPractice = undo.practice || [];
