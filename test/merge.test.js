@@ -212,7 +212,7 @@ test('memory tips live on tip, not inside the example sentence', () => {
     nv: "女 looks like a person kneeling with crossed arms. It's the left half of 她 she and 好 good.",
     riluo: '日 sun + 落 fall = the sun falls = sunset. 落 has 艹 grass on top and 氵 water on the left.',
     zai: "在 has 土 earth at the bottom right: you're standing on the ground AT a place. Don't mix it up with 有 yǒu, which has 月 inside.",
-    zhe: "这 has 辶, the 'walking road' radical, wrapping around 文. Think: walk over HERE, this one. 这 zhè = this, 那 nà = that.",
+    zhe: "这 has 辶, the 'walking road' radical, wrapping around 文. Think: walk over HERE, this one. You already say it all the time: 这是什么? = what is this? 这 zhè = this, 那 nà = that.",
     na: '那 ends with 阝, an ear-shaped radical on the RIGHT. Point far away to THAT one. 这 zhè has 辶 road; 那 nà has 阝 ear.',
     shenme: '什 = 亻 person + 十 ten; 么 is a little twist. You say shénme all the time; spot the 亻 person on the left.',
     er: '二 two lines = two; 二月 second month.',

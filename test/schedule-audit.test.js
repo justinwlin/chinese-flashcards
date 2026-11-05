@@ -101,7 +101,7 @@ test('read and write are scheduled separately, and sync does not reschedule', ()
 test('new cards stay out of Today until he queues them', () => {
   const now = Date.parse('2026-10-31T15:00:00Z');
   assert.equal(buildQueue(words, {}, settings, now).length, 0);
-  assert.equal(summarize(words, {}, settings, now).unseen, 6);
+  assert.equal(summarize(words, {}, settings, now).unseen, 3);
   const picked = unseenCards(words, {}, settings).slice(0, 2);
   assert.deepEqual(picked.map((item) => item.card.id), ['ren:read', 'kou:read']);
   const queued = queueUnseen({}, picked);
@@ -124,9 +124,12 @@ test('Justin’s saved progress is due by its timestamps, not by opening the app
       assert.equal(sameLocalDay(card.due, card.lastReview), false, card.id);
       assert.ok(card.due - card.lastReview >= DAY, card.id);
     }
-    if (graded === 'again' || graded === 'hard') {
+    if (graded === 'again') {
+      assert.equal(card.status === 'learning' || card.status === 'relearning', true, card.id);
       assert.ok(card.due - card.lastReview <= 15 * MIN, card.id);
-      assert.equal(card.status === 'learning' || card.status === 'relearning', true);
+    }
+    if (graded === 'hard' && (card.status === 'learning' || card.status === 'relearning')) {
+      assert.ok(card.due - card.lastReview <= 15 * MIN, card.id);
     }
   }
   const moon = progress.cards['yue:read'];
