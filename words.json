@@ -374,16 +374,16 @@
     "pinyin": "zhè",
     "meaning": "this",
     "example": {
-      "hanzi": "这是水。",
-      "pinyin": "Zhè shì shuǐ.",
-      "english": "This is water."
+      "hanzi": "这是什么？",
+      "pinyin": "Zhè shì shénme?",
+      "english": "What is this?"
     },
-    "tip": "这 has 辶, the 'walking road' radical, wrapping around 文. Think: walk over HERE, this one. 这 zhè = this, 那 nà = that.",
+    "tip": "这 has 辶, the 'walking road' radical, wrapping around 文. Think: walk over HERE, this one. You already say it all the time: 这是什么? = what is this? 这 zhè = this, 那 nà = that.",
     "tags": [
       "hsk1"
     ],
     "added": "2026-10-31",
-    "updated": "2026-11-02T19:30:00.000Z"
+    "updated": "2026-11-05T13:08:12.000Z"
   },
   {
     "id": "na",
