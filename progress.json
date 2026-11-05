@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-05T05:12:27.171Z",
+  "updated": "2026-11-05T13:21:47.298Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -29,6 +29,22 @@
         }
       ],
       "queued": true
+    },
+    "bu:write": {
+      "id": "bu:write",
+      "wordId": "bu",
+      "hanzi": "不",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794144106903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "feiji:read": {
       "id": "feiji:read",
@@ -68,6 +84,22 @@
       ],
       "queued": true
     },
+    "feiji:write": {
+      "id": "feiji:write",
+      "wordId": "feiji",
+      "hanzi": "飞机",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794921706903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "hao:read": {
       "id": "hao:read",
       "wordId": "hao",
@@ -95,6 +127,22 @@
         }
       ]
     },
+    "hao:write": {
+      "id": "hao:write",
+      "wordId": "hao",
+      "hanzi": "好",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1793971306903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "kou:read": {
       "id": "kou:read",
       "wordId": "kou",
@@ -121,6 +169,22 @@
           "direction": "read"
         }
       ]
+    },
+    "kou:write": {
+      "id": "kou:write",
+      "wordId": "kou",
+      "hanzi": "口",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794230506903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "ming:read": {
       "id": "ming:read",
@@ -178,6 +242,22 @@
           "direction": "read"
         }
       ]
+    },
+    "ming:write": {
+      "id": "ming:write",
+      "wordId": "ming",
+      "hanzi": "明",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795699306903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "na:read": {
       "id": "na:read",
@@ -255,6 +335,22 @@
       ],
       "queued": true
     },
+    "ni:write": {
+      "id": "ni:write",
+      "wordId": "ni",
+      "hanzi": "你",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794316906903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "nihao:read": {
       "id": "nihao:read",
       "wordId": "nihao",
@@ -281,6 +377,22 @@
           "direction": "read"
         }
       ]
+    },
+    "nihao:write": {
+      "id": "nihao:write",
+      "wordId": "nihao",
+      "hanzi": "你好",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794662506903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "nv:read": {
       "id": "nv:read",
@@ -334,6 +446,22 @@
         }
       ]
     },
+    "nv:write": {
+      "id": "nv:write",
+      "wordId": "nv",
+      "hanzi": "女",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795612906903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "pengyou:read": {
       "id": "pengyou:read",
       "wordId": "pengyou",
@@ -377,6 +505,22 @@
       ],
       "queued": true
     },
+    "pengyou:write": {
+      "id": "pengyou:write",
+      "wordId": "pengyou",
+      "hanzi": "朋友",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795008106903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "ren:read": {
       "id": "ren:read",
       "wordId": "ren",
@@ -403,6 +547,22 @@
           "direction": "read"
         }
       ]
+    },
+    "ren:write": {
+      "id": "ren:write",
+      "wordId": "ren",
+      "hanzi": "人",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794403306903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "ri:read": {
       "id": "ri:read",
@@ -460,6 +620,22 @@
           "direction": "read"
         }
       ]
+    },
+    "ri:write": {
+      "id": "ri:write",
+      "wordId": "ri",
+      "hanzi": "日",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795094506903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "riluo:read": {
       "id": "riluo:read",
@@ -523,6 +699,22 @@
         }
       ]
     },
+    "riluo:write": {
+      "id": "riluo:write",
+      "wordId": "riluo",
+      "hanzi": "日落",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795785706903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "shenme:read": {
       "id": "shenme:read",
       "wordId": "shenme",
@@ -566,6 +758,22 @@
       ],
       "queued": true
     },
+    "shenme:write": {
+      "id": "shenme:write",
+      "wordId": "shenme",
+      "hanzi": "什么",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795180906903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "shi:read": {
       "id": "shi:read",
       "wordId": "shi",
@@ -594,6 +802,22 @@
       ],
       "queued": true
     },
+    "shi:write": {
+      "id": "shi:write",
+      "wordId": "shi",
+      "hanzi": "是",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794489706903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "shui:read": {
       "id": "shui:read",
       "wordId": "shui",
@@ -620,6 +844,22 @@
           "direction": "read"
         }
       ]
+    },
+    "shui:write": {
+      "id": "shui:write",
+      "wordId": "shui",
+      "hanzi": "水",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794576106903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "ta-she:read": {
       "id": "ta-she:read",
@@ -649,6 +889,22 @@
       ],
       "queued": true
     },
+    "ta-she:write": {
+      "id": "ta-she:write",
+      "wordId": "ta-she",
+      "hanzi": "她",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794835306903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "ta:read": {
       "id": "ta:read",
       "wordId": "ta",
@@ -677,6 +933,22 @@
       ],
       "queued": true
     },
+    "ta:write": {
+      "id": "ta:write",
+      "wordId": "ta",
+      "hanzi": "他",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794748906903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "wo:read": {
       "id": "wo:read",
       "wordId": "wo",
@@ -704,6 +976,22 @@
         }
       ],
       "queued": true
+    },
+    "wo:write": {
+      "id": "wo:write",
+      "wordId": "wo",
+      "hanzi": "我",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794057706903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "xiexie:read": {
       "id": "xiexie:read",
@@ -738,6 +1026,22 @@
       ],
       "queued": true
     },
+    "xiexie:write": {
+      "id": "xiexie:write",
+      "wordId": "xiexie",
+      "hanzi": "谢谢",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795267306903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
+    },
     "you:read": {
       "id": "you:read",
       "wordId": "you",
@@ -765,6 +1069,22 @@
         }
       ],
       "queued": true
+    },
+    "you:write": {
+      "id": "you:write",
+      "wordId": "you",
+      "hanzi": "有",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795353706903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "yue:read": {
       "id": "yue:read",
@@ -827,6 +1147,22 @@
           "direction": "read"
         }
       ]
+    },
+    "yue:write": {
+      "id": "yue:write",
+      "wordId": "yue",
+      "hanzi": "月",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795440106903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "zai:read": {
       "id": "zai:read",
@@ -966,6 +1302,22 @@
         }
       ],
       "queued": true
+    },
+    "zhongguo:write": {
+      "id": "zhongguo:write",
+      "wordId": "zhongguo",
+      "hanzi": "中国",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1795526506903,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     }
   },
   "deletedWords": {}
