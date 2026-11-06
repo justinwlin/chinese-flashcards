@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-06T04:38:22.034Z",
+  "updated": "2026-11-06T04:39:25.001Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -890,11 +890,11 @@
       "status": "review",
       "step": 0,
       "ease": 2.65,
-      "interval": 4,
-      "repetitions": 1,
+      "interval": 10,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793892917459,
-      "lastReview": 1793547317459,
+      "due": 1794803961305,
+      "lastReview": 1793939961305,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -905,6 +905,11 @@
         {
           "at": "2026-11-01T15:35:17.459Z",
           "grade": "easy",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-06T04:39:21.305Z",
+          "grade": "good",
           "direction": "read"
         }
       ],
@@ -934,11 +939,11 @@
       "status": "review",
       "step": 0,
       "ease": 2.65,
-      "interval": 4,
-      "repetitions": 1,
+      "interval": 11,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793892915013,
-      "lastReview": 1793547315013,
+      "due": 1794890359022,
+      "lastReview": 1793939959022,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -949,6 +954,11 @@
         {
           "at": "2026-11-01T15:35:15.013Z",
           "grade": "easy",
+          "direction": "read"
+        },
+        {
+          "at": "2026-11-06T04:39:19.022Z",
+          "grade": "good",
           "direction": "read"
         }
       ],
