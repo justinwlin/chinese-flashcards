@@ -382,10 +382,17 @@ h2 { margin: 0 0 8px; font-size: 22px; }
 .hanzi-sm { font-size: 32px; line-height: 1.1; }
 
 .prompt {
-  margin: 8px 0;
+  margin: 8px 0 0;
   font-size: clamp(32px, 8vw, 44px);
   line-height: 1.15;
   font-weight: 750;
+}
+
+.recall-cue {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 650;
 }
 
 .reading { margin: 0; font-size: 28px; font-weight: 700; }

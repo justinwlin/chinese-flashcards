@@ -349,6 +349,35 @@ test('review logs from both devices are kept with the newer schedule', () => {
   assert.deepEqual(merged['ren:read'].reviews.map((entry) => entry.grade), ['again', 'good']);
 });
 
+test('an unstarted write card does not block end-of-set sync', () => {
+  const now = Date.parse('2026-11-06T13:00:00Z');
+  const deck = [{ id: 'ren', hanzi: '人', pinyin: 'rén', meaning: 'person', added: '2026-10-31' }];
+  const both = { ...DEFAULT_SETTINGS, directions: 'both' };
+  const read = {
+    ...freshCard('ren:read', 'ren', 'read'),
+    status: 'review',
+    interval: 4,
+    ease: 2.65,
+    due: now + 4 * 24 * 60 * 60 * 1000,
+    lastReview: now,
+    reviews: [{ at: new Date(now).toISOString(), grade: 'easy', direction: 'read' }],
+  };
+  const write = {
+    ...freshCard('ren:write', 'ren', 'write'),
+    status: 'learning',
+    step: 0,
+    due: now + 24 * 60 * 60 * 1000,
+    lastReview: 0,
+    reviews: [],
+  };
+  const cards = { 'ren:read': read, 'ren:write': write };
+  assert.equal(buildQueue(deck, cards, both, now).length, 0);
+  assert.deepEqual(
+    planSyncAfterGrade({ words: deck, cards, settings: both, now }),
+    { when: 'now', delayMs: 0 },
+  );
+});
+
 test('a finished set syncs immediately and a card in the middle does not', () => {
   assert.equal(shouldSyncSetNow({ queueEmpty: true, learningPending: false, batchPending: false }), true);
   assert.equal(shouldSyncSetNow({ queueEmpty: false, learningPending: false, batchPending: false }), false);

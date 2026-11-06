@@ -112,7 +112,12 @@ export function Review({ words, cards, settings, now, undo, practice, onGrade, o
             {current.card.direction === 'read' ? (
               <p class={`hanzi ${revealed ? 'hanzi-lg' : 'hanzi-xl'}`} lang="zh-CN">{current.word.hanzi}</p>
             ) : (
-              !revealed && <p class="prompt">{current.word.meaning}</p>
+              !revealed && (
+                <>
+                  <p class="prompt">{current.word.meaning}</p>
+                  <p class="recall-cue">Recall the character</p>
+                </>
+              )
             )}
 
             {revealed && (

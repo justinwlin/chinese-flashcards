@@ -52,9 +52,8 @@ test('known words get staggered write cards and read progress stays put', () => 
   }
 
   const createdWords = Object.values(created).map((card) => words.find((word) => word.id === card.wordId).hanzi);
-  assert.ok(createdWords.length >= 15);
-  assert.ok(createdWords.includes('人'));
-  assert.ok(createdWords.includes('好'));
+  assert.equal(created['ren:write'], undefined);
+  assert.equal(created['hao:write'], undefined);
   assert.equal(createdWords.includes('吃'), false);
   assert.equal(createdWords.includes('这'), false);
 
@@ -69,7 +68,42 @@ test('known words get staggered write cards and read progress stays put', () => 
   assert.ok(unseen.every((id) => id.endsWith(':read')));
   assert.equal(summarize(words, withWrites, settings, now).unseen, UNSEEN.length);
 
+  const sample = [
+    { id: 'jia', hanzi: '家', pinyin: 'jiā', meaning: 'home' },
+    { id: 'chi', hanzi: '吃', pinyin: 'chī', meaning: 'to eat' },
+  ];
+  const sampleCards = {
+    'jia:read': {
+      id: 'jia:read',
+      wordId: 'jia',
+      direction: 'read',
+      status: 'review',
+      interval: 8,
+      repetitions: 3,
+      reviews: [{ grade: 'easy', at: '2026-11-01T00:00:00.000Z', direction: 'read' }],
+    },
+    'chi:read': {
+      id: 'chi:read',
+      wordId: 'chi',
+      direction: 'read',
+      status: 'review',
+      interval: 3,
+      repetitions: 2,
+      reviews: [{ grade: 'good', at: '2026-11-01T00:00:00.000Z', direction: 'read' }],
+    },
+  };
+  const sampleCreated = planWriteCards(sample, sampleCards, now);
+  assert.deepEqual(Object.keys(sampleCreated), ['jia:write', 'chi:write']);
+  assert.equal(sampleCreated['jia:write'].due, now + DAY);
+  assert.equal(sampleCreated['chi:write'].due, now + 2 * DAY);
+  assert.equal(sampleCreated['jia:write'].status, 'learning');
+  assert.equal((sampleCreated['jia:write'].reviews || []).length, 0);
+  assert.equal(sampleCreated['jia:write'].lastReview || 0, 0);
+
   const again = planWriteCards(words, withWrites, now + DAY);
   assert.deepEqual(again, {});
-  assert.equal(withWrites[`${byHanzi.get('人').id}:write`].due, created[`${byHanzi.get('人').id}:write`].due);
+  assert.equal(
+    withWrites[`${byHanzi.get('人').id}:write`].due,
+    progress.cards[`${byHanzi.get('人').id}:write`].due,
+  );
 });

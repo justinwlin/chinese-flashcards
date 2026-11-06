@@ -42,16 +42,21 @@ export function shouldSyncSetNow({ queueEmpty, learningPending = false, batchPen
  * While a learning step is waiting to come back, the idle wait runs until
  * that step is due, so the gap itself does not become a commit.
  */
+function isMidSessionLearning(card) {
+  if (card.status !== 'learning' && card.status !== 'relearning') return false;
+  return (card.lastReview || 0) > 0 || (card.reviews || []).length > 0;
+}
+
 export function planSyncAfterGrade({ words, cards, settings, now, idleMs = 15000 }) {
   let learningPending = false;
   let batchPending = false;
   let nextDue = null;
   for (const { card } of enumerateCards(words, cards, settings)) {
-    if (card.status === 'learning' || card.status === 'relearning') learningPending = true;
-    if (card.status === 'new' && card.queued) batchPending = true;
-    if (card.status !== 'new' && card.due > now && (nextDue === null || card.due < nextDue)) {
-      nextDue = card.due;
+    if (isMidSessionLearning(card)) {
+      learningPending = true;
+      if (card.due > now && (nextDue === null || card.due < nextDue)) nextDue = card.due;
     }
+    if (card.status === 'new' && card.queued) batchPending = true;
   }
   const queueEmpty = buildQueue(words, cards, settings, now).length === 0;
   if (shouldSyncSetNow({ queueEmpty, learningPending, batchPending })) {
