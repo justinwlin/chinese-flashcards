@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-05T13:21:47.298Z",
+  "updated": "2026-11-06T04:38:22.034Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -267,11 +267,11 @@
       "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 1,
-      "repetitions": 1,
+      "interval": 3,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793886492097,
-      "lastReview": 1793800092097,
+      "due": 1794199096608,
+      "lastReview": 1793939896608,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -303,9 +303,30 @@
           "at": "2026-11-04T13:48:12.097Z",
           "grade": "good",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-06T04:38:16.608Z",
+          "grade": "good",
+          "direction": "read"
         }
       ],
       "queued": true
+    },
+    "na:write": {
+      "id": "na:write",
+      "wordId": "na",
+      "hanzi": "那",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794026296608,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "ni:read": {
       "id": "ni:read",
@@ -1172,11 +1193,11 @@
       "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 1,
-      "repetitions": 1,
+      "interval": 3,
+      "repetitions": 2,
       "lapses": 0,
-      "due": 1793886476096,
-      "lastReview": 1793800076096,
+      "due": 1794199088516,
+      "lastReview": 1793939888516,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -1208,9 +1229,30 @@
           "at": "2026-11-04T13:47:56.096Z",
           "grade": "good",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-06T04:38:08.516Z",
+          "grade": "good",
+          "direction": "read"
         }
       ],
       "queued": true
+    },
+    "zai:write": {
+      "id": "zai:write",
+      "wordId": "zai",
+      "hanzi": "在",
+      "direction": "write",
+      "status": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "repetitions": 0,
+      "lapses": 0,
+      "due": 1794026288516,
+      "lastReview": 0,
+      "introducedOn": null,
+      "reviews": []
     },
     "zhe:read": {
       "id": "zhe:read",
