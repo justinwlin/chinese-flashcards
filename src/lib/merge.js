@@ -1,4 +1,4 @@
-import { DIRECTIONS, cardId } from './day.js';
+import { DIRECTIONS, cardId, dayKey } from './day.js';
 import { freshCard } from './srs.js';
 
 const KNOWN_WORD_KEYS = new Set(['id', 'hanzi', 'pinyin', 'meaning', 'example', 'tip', 'tags', 'added', 'updated', 'dirty']);
@@ -313,8 +313,42 @@ export function enumerateCards(words, cards, settings) {
   return items;
 }
 
-export function summarize(words, cards, settings, now) {
+/** A Write face created ahead of time and never opened. */
+function neverStartedWrite(card) {
+  return card.direction === 'write'
+    && !(card.lastReview > 0)
+    && !(card.reviews || []).length
+    && !card.introducedOn;
+}
+
+function writeStartedOn(card) {
+  if (card.direction !== 'write' || neverStartedWrite(card)) return null;
+  if (card.introducedOn) return card.introducedOn;
+  let first = card.lastReview || 0;
+  for (const review of card.reviews || []) {
+    const at = Date.parse(review?.at);
+    if (Number.isFinite(at) && (first === 0 || at < first)) first = at;
+  }
+  return first > 0 ? dayKey(first) : null;
+}
+
+/**
+ * At most one never-started Write card is due on a calendar day.
+ * Others stay out of the queue; their saved due dates are not changed.
+ * If a Write card was already started today, no further first-time Write is due.
+ */
+function cappedWriteIds(items, now, today) {
+  const startedToday = items.some(({ card }) => writeStartedOn(card) === today);
+  const fresh = items
+    .filter(({ card }) => neverStartedWrite(card) && card.due <= now)
+    .sort((a, b) => (a.card.due - b.card.due) || String(a.card.id).localeCompare(String(b.card.id)));
+  const keep = startedToday ? null : fresh[0]?.card.id;
+  return new Set(fresh.filter((item) => item.card.id !== keep).map((item) => item.card.id));
+}
+
+export function summarize(words, cards, settings, now, today = dayKey(now)) {
   const items = enumerateCards(words, cards, settings);
+  const held = cappedWriteIds(items, now, today);
   let learningDue = 0;
   let reviewDue = 0;
   let unseen = 0;
@@ -326,6 +360,7 @@ export function summarize(words, cards, settings, now) {
       else unseen += 1;
       continue;
     }
+    if (held.has(card.id)) continue;
     if (card.due <= now) {
       if (card.status === 'review') reviewDue += 1;
       else learningDue += 1;
@@ -362,13 +397,14 @@ export function queueUnseen(cards, items) {
   return next;
 }
 
-export function buildQueue(words, cards, settings, now) {
+export function buildQueue(words, cards, settings, now, today = dayKey(now)) {
   const items = enumerateCards(words, cards, settings);
+  const held = cappedWriteIds(items, now, today);
   const learning = items
-    .filter(({ card }) => (card.status === 'learning' || card.status === 'relearning') && card.due <= now)
+    .filter(({ card }) => (card.status === 'learning' || card.status === 'relearning') && card.due <= now && !held.has(card.id))
     .sort((a, b) => a.card.due - b.card.due);
   const reviews = items
-    .filter(({ card }) => card.status === 'review' && card.due <= now)
+    .filter(({ card }) => card.status === 'review' && card.due <= now && !held.has(card.id))
     .sort((a, b) => a.card.due - b.card.due);
   const chosen = items.filter(({ card }) => card.status === 'new' && card.queued);
   return [...learning, ...reviews, ...chosen];

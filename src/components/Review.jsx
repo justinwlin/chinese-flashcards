@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { LearnNew } from './LearnNew.jsx';
 import { buildQueue, summarize } from '../lib/merge.js';
 import { formatDelay, isStruggling, previewDelays, sessionQueue, strugglingWords } from '../lib/srs.js';
@@ -30,27 +30,30 @@ export function Review({ words, cards, settings, now, undo, practice, onGrade, o
     setOpenToken(revealToken);
     if (settings.speakOnReveal && current) speakChinese(current.word.hanzi);
   };
+  const keysRef = useRef({});
+  keysRef.current = { current, revealed, onGrade, reveal };
 
   useEffect(() => {
     const onKey = (event) => {
       const tag = event.target?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-      if (!current) return;
-      if ((event.key === ' ' || event.key === 'Enter') && !revealed) {
+      const live = keysRef.current;
+      if (!live.current) return;
+      if ((event.key === ' ' || event.key === 'Enter') && !live.revealed) {
         event.preventDefault();
-        reveal();
+        live.reveal();
         return;
       }
-      if (!revealed) return;
+      if (!live.revealed) return;
       const ratings = { 1: 'again', 2: 'hard', 3: 'good', 4: 'easy' };
       if (ratings[event.key]) {
         event.preventDefault();
-        onGrade(current, ratings[event.key]);
+        live.onGrade(live.current, ratings[event.key]);
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  });
+  }, [current?.card.id, current?.card.due, current?.card.status, revealed, settings.speakOnReveal]);
 
   const delays = current ? previewDelays(current.card, now) : null;
   const waiting = summary.nextDue ? formatDelay(Math.max(0, summary.nextDue - now)) : null;
@@ -172,7 +175,6 @@ export function Review({ words, cards, settings, now, undo, practice, onGrade, o
         </>
       ) : (
         <article class="card empty-card">
-          <p class="hanzi hanzi-lg" lang="zh-CN">日落</p>
           <h2>No reviews due.</h2>
           {waiting && <p>Next review in {waiting}.</p>}
           {summary.unseen > 0 && <p>{summary.unseen} unseen words are available when you want them.</p>}

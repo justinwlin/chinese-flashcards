@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import test from 'node:test';
+import { dayKey } from '../src/lib/day.js';
 import { buildQueue, parseProgress, summarize, unseenCards } from '../src/lib/merge.js';
 import { DEFAULT_SETTINGS } from '../src/lib/settings.js';
-import { planWriteCards, readSideReadyForWrite } from '../src/lib/srs.js';
+import { freshCard, planWriteCards, readSideReadyForWrite } from '../src/lib/srs.js';
 
 const DAY = 24 * 60 * 60 * 1000;
 const UNSEEN = ['吃', '喝', '家', '一', '二', '三', '大', '小', '妈妈', '吗'];
@@ -14,6 +15,72 @@ function loadDeck() {
   const words = JSON.parse(fs.readFileSync(new URL('../words.json', import.meta.url), 'utf8'));
   return { progress, words };
 }
+
+test('three overdue never-started write cards count as one due', () => {
+  const now = Date.parse('2026-11-07T15:00:00Z');
+  const today = dayKey(now);
+  const words = [
+    { id: 'hao', hanzi: '好', pinyin: 'hǎo', meaning: 'good' },
+    { id: 'zai', hanzi: '在', pinyin: 'zài', meaning: 'at' },
+    { id: 'na', hanzi: '那', pinyin: 'nà', meaning: 'that' },
+    { id: 'ren', hanzi: '人', pinyin: 'rén', meaning: 'person' },
+    { id: 'kou', hanzi: '口', pinyin: 'kǒu', meaning: 'mouth' },
+  ];
+  const settings = { ...DEFAULT_SETTINGS, directions: 'both' };
+  const unstarted = (id, wordId, due) => ({
+    ...freshCard(id, wordId, 'write'),
+    status: 'learning',
+    due,
+    lastReview: 0,
+    introducedOn: null,
+    reviews: [],
+  });
+  const cards = {
+    'hao:write': unstarted('hao:write', 'hao', now - 3 * DAY),
+    'zai:write': unstarted('zai:write', 'zai', now - 2 * DAY),
+    'na:write': unstarted('na:write', 'na', now - DAY),
+    'ren:read': {
+      ...freshCard('ren:read', 'ren', 'read'),
+      status: 'review',
+      due: now - 1000,
+      interval: 4,
+      lastReview: now - 4 * DAY,
+      reviews: [{ at: new Date(now - 4 * DAY).toISOString(), grade: 'good', direction: 'read' }],
+    },
+    'kou:write': {
+      ...freshCard('kou:write', 'kou', 'write'),
+      status: 'relearning',
+      due: now - 500,
+      lastReview: now - DAY,
+      introducedOn: dayKey(now - 2 * DAY),
+      reviews: [{ at: new Date(now - 2 * DAY).toISOString(), grade: 'again', direction: 'write' }],
+    },
+  };
+  const saved = JSON.stringify(cards);
+  const summary = summarize(words, cards, settings, now, today);
+  const queue = buildQueue(words, cards, settings, now, today);
+  assert.equal(JSON.stringify(cards), saved);
+  assert.deepEqual(queue.map((item) => item.card.id), ['hao:write', 'kou:write', 'ren:read']);
+  assert.equal(summary.due, queue.length);
+  assert.equal(summary.learningDue, 2);
+  assert.equal(summary.reviewDue, 1);
+
+  const started = {
+    ...cards,
+    'hao:write': {
+      ...cards['hao:write'],
+      status: 'review',
+      due: now + DAY,
+      lastReview: now - 60_000,
+      reviews: [{ at: new Date(now - 60_000).toISOString(), grade: 'good', direction: 'write' }],
+    },
+  };
+  const later = summarize(words, started, settings, now, today);
+  const laterQueue = buildQueue(words, started, settings, now, today);
+  assert.deepEqual(laterQueue.map((item) => item.card.id), ['kou:write', 'ren:read']);
+  assert.equal(later.due, 2);
+  assert.equal(laterQueue.some((item) => item.card.id === 'zai:write' || item.card.id === 'na:write'), false);
+});
 
 test('write cards are only for read cards he is already reviewing', () => {
   assert.equal(readSideReadyForWrite(null), false);
