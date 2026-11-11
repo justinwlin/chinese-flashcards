@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-10T06:42:00.464Z",
+  "updated": "2026-11-11T17:51:05.805Z",
   "cards": {
     "bu:read": {
       "id": "bu:read",
@@ -1261,14 +1261,14 @@
       "wordId": "zai",
       "hanzi": "在",
       "direction": "read",
-      "status": "relearning",
+      "status": "review",
       "step": 0,
       "ease": 2.3,
       "interval": 1,
-      "repetitions": 2,
+      "repetitions": 3,
       "lapses": 1,
-      "due": 1794293510784,
-      "lastReview": 1794292910784,
+      "due": 1794505859150,
+      "lastReview": 1794419459150,
       "introducedOn": "2026-10-31",
       "reviews": [
         {
@@ -1310,6 +1310,11 @@
           "at": "2026-11-10T06:41:50.784Z",
           "grade": "again",
           "direction": "read"
+        },
+        {
+          "at": "2026-11-11T17:50:59.150Z",
+          "grade": "good",
+          "direction": "read"
         }
       ],
       "queued": true
@@ -1319,16 +1324,22 @@
       "wordId": "zai",
       "hanzi": "在",
       "direction": "write",
-      "status": "learning",
+      "status": "review",
       "step": 0,
       "ease": 2.5,
-      "interval": 0,
-      "repetitions": 0,
+      "interval": 1,
+      "repetitions": 1,
       "lapses": 0,
-      "due": 1794026288516,
-      "lastReview": 0,
+      "due": 1794505857215,
+      "lastReview": 1794419457215,
       "introducedOn": null,
-      "reviews": []
+      "reviews": [
+        {
+          "at": "2026-11-11T17:50:57.215Z",
+          "grade": "good",
+          "direction": "write"
+        }
+      ]
     },
     "zhe:read": {
       "id": "zhe:read",
